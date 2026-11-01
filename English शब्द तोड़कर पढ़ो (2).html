@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English शब्द तोड़कर पढ़ो</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔤</text></svg>">
+<style>
+:root{color-scheme:light dark;--bg:#eef3fa;--card:#fff;--ink:#102040;--mut:#5a6785;--acc:#1d4ed8;--hl:#ffd23f;--hlink:#102040;--ok:#15803d;--bad:#b91c1c;--line:#cfd9ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1526;--card:#17213a;--ink:#eaf0ff;--mut:#9aa8c7;--acc:#7aa2ff;--ok:#4ade80;--bad:#f87171;--line:#2a3858}}
+:root[data-theme="dark"]{--bg:#0e1526;--card:#17213a;--ink:#eaf0ff;--mut:#9aa8c7;--acc:#7aa2ff;--ok:#4ade80;--bad:#f87171;--line:#2a3858}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,-apple-system,"Noto Sans Devanagari","Mangal",sans-serif;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.35rem;margin:4px 0 2px}
+.sub{color:var(--mut);margin:0 0 14px;font-size:.95rem}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tabs button{flex:1;padding:10px 6px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:.9rem;font-weight:600}
+.tabs button.on{border-color:var(--acc);background:var(--acc);color:#fff}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;margin-top:6px}
+.cnt{color:var(--mut);font-size:.85rem;text-align:right}
+.big{font-size:2.3rem;font-weight:800;letter-spacing:.02em;text-align:center;margin:6px 0 14px}
+.big.sm{font-size:1.7rem}
+.parts{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin:8px 0}
+.parts i{font-style:normal;font-weight:800;color:var(--mut);font-size:1.3rem}
+.p{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:8px 12px;border:2px solid var(--ink);border-radius:12px;background:var(--card);transition:background .2s,transform .2s}
+.p b{font-size:1.6rem;line-height:1.2}
+.p span{font-size:1.05rem;color:var(--acc);font-weight:700}
+.p.on{background:var(--hl);color:var(--hlink);transform:translateY(-4px)}
+.p.on span{color:var(--hlink)}
+.eq{text-align:center;margin:12px 0 4px}
+.row{display:flex;gap:8px;margin-top:10px}
+button{font:inherit;cursor:pointer}
+.row button,.opt,.next{flex:1;padding:12px 8px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-weight:600}
+.row button.pri,.next{background:var(--acc);border-color:var(--acc);color:#fff}
+button:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{font-size:1.25rem;display:flex;align-items:center;gap:12px;text-align:left;padding:10px 12px}
+.lt{flex:none;width:32px;height:32px;border-radius:50%;background:var(--bg);color:var(--ink);display:grid;place-items:center;font-size:1rem;font-weight:800;border:2px solid var(--line)}
+.opt.ok .lt,.opt.bad .lt{background:rgba(255,255,255,.25);color:#fff;border-color:#fff}
+.opt.ok{border-color:var(--ok);background:var(--ok);color:#fff}
+.opt.bad{border-color:var(--bad);background:var(--bad);color:#fff}
+.fb{text-align:center;font-weight:700;margin-top:12px}
+.next{width:100%;margin-top:10px;flex:none}
+.inp{width:100%;padding:12px;font:inherit;font-size:1.2rem;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);margin-top:6px}
+.ex{text-align:center;color:var(--mut);font-size:.95rem;margin-top:8px}
+#md{display:grid;grid-template-columns:1fr 1fr}
+.ex2{margin-top:12px;padding:12px;border:2px dashed var(--line);border-radius:12px;font-size:.98rem}
+.ex2 b{display:block;color:var(--acc);margin-top:6px}
+.ex2 small{display:block;color:var(--mut)}
+.mres{min-height:1.5em;font-size:.95rem}
+.pulse{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--bad);vertical-align:middle;animation:pl 1s infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(220,38,38,.6)}100%{box-shadow:0 0 0 14px rgba(220,38,38,0)}}
+button.rec{border-color:var(--bad);color:var(--bad)}
+.tot{font-weight:700;margin:6px 2px}
+.cnt select{font:inherit;font-size:.85rem;max-width:60%;padding:4px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);margin-right:6px}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:20;opacity:0;pointer-events:none;transition:opacity .25s}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}#toast{transition:none}}
+.p.bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.p.bad span{color:#fff}
+@media (prefers-reduced-motion:reduce){.p{transition:none}}
+.pic{position:relative;height:130px;border-radius:14px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;background:var(--c);color:#fff;overflow:hidden}
+.pic .bg{position:absolute;right:-8px;bottom:-14px;width:120px;height:120px;opacity:.22}
+.pic .em{font-size:3.4rem;line-height:1;position:relative}
+.pic small{position:absolute;left:10px;bottom:8px;font-weight:700;font-size:.8rem;background:rgba(0,0,0,.28);padding:2px 8px;border-radius:999px}
+.pic.noem .bg{position:static;width:84px;height:84px;opacity:.9}
+#splash{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:linear-gradient(160deg,#1d4ed8,#0e7490);transition:opacity .6s;padding:env(safe-area-inset-top,0px) 16px env(safe-area-inset-bottom,0px)}
+#splash.hide{opacity:0;pointer-events:none}
+#splash h2{font-size:2.2rem;margin:8px 0 0}
+#splash p{margin:0;font-size:1.1rem;opacity:.92}
+.orb{animation:spin 9s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none}#splash{transition:none}}
+.hd{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#1d4ed8,#0e7490);color:#fff;border-radius:16px;padding:10px 12px 10px 16px;margin-bottom:10px}
+.hd h1{margin:0;font-size:1.25rem}
+.gear{border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:12px;width:42px;height:42px;display:grid;place-items:center}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:10px;display:grid;gap:10px}
+.panel[hidden]{display:none}
+.panel label{display:flex;align-items:center;gap:10px}
+.panel input{width:22px;height:22px}
+.exsec{margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:var(--bg);border:2px solid var(--line);font-size:1rem}
+.exsec b{color:var(--acc);display:block}
+.exsec small{display:block;color:var(--mut);margin-top:2px;font-size:.95rem}
+.row button.spd{flex:0 0 auto;padding:12px 10px}
+.spd.on{background:var(--hl);color:var(--hlink);border-color:var(--hl)}
+.pic .tags{position:absolute;left:10px;bottom:8px;display:flex;gap:6px}
+.pic .tags small{position:static}
+.pic .tags small.lv{background:#fff;color:#102040}
+.p.good{background:var(--ok);border-color:var(--ok);color:#fff;box-shadow:0 0 0 3px rgba(34,197,94,.35),0 0 14px rgba(34,197,94,.7)}
+.p.good span{color:#fff}
+.p.bad{animation:blink .45s 3}
+@keyframes blink{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.p.bad{animation:none}}
+</style>
+</head>
+<body>
+<div id="splash" onclick="this.classList.add('hide')" role="presentation">
+<svg viewBox="0 0 240 190" width="240" height="190" aria-hidden="true">
+<g class="orb" fill="none" stroke="#fff" stroke-width="4"><circle cx="120" cy="70" r="9" fill="#ffd23f" stroke="none"/><ellipse cx="120" cy="70" rx="58" ry="20"/><ellipse cx="120" cy="70" rx="58" ry="20" transform="rotate(60 120 70)"/><ellipse cx="120" cy="70" rx="58" ry="20" transform="rotate(120 120 70)"/></g>
+<g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M70 130h42a8 8 0 0 1 8 8v36a8 8 0 0 0-8-8H70zM170 130h-42a8 8 0 0 0-8 8v36a8 8 0 0 1 8-8h42z"/><path d="M38 108h14M41 108v16L26 150a5 5 0 0 0 4 8h30a5 5 0 0 0 4-8L49 124v-16"/></g>
+<circle cx="204" cy="56" r="4" fill="#ffd23f"/><circle cx="214" cy="112" r="3" fill="#fff"/><circle cx="30" cy="52" r="3" fill="#fff"/>
+</svg>
+<h2>शब्द तोड़ो</h2><p>English शब्द तोड़कर पढ़ो</p>
+</div>
+<div class="wrap">
+<header class="hd"><h1>इंग्लिश शब्द तोड़ो</h1><button class="gear" aria-label="सेटिंग" aria-expanded="false" onclick="togPanel(this)"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="currentColor"/><circle cx="15" cy="17" r="2.4" fill="currentColor"/></svg></button></header>
+<div id="panel" class="panel" hidden><label><input type="checkbox" id="slowc" onchange="togSlow()"> 🐢 धीमी आवाज़ (0.75x)</label><label><input type="checkbox" id="darkc" onchange="togTheme(this.checked)"> 🌙 अँधेरा theme</label></div>
+<p class="sub">भारी word को टुकड़ों में तोड़ो, फिर जोड़कर बोलो।</p>
+<div class="tabs" id="lv"></div>
+<div class="tabs" id="md"></div>
+<div id="main"></div>
+</div>
+<script>
+const D={1:`water|wa·ter|वॉ-टर|पानी
+mother|moth·er|मद-र|माँ
+father|fa·ther|फा-दर|पिता
+teacher|teach·er|टी-चर|शिक्षक
+market|mar·ket|मार-किट|बाज़ार
+doctor|doc·tor|डॉक-टर|इलाज करने वाले
+yellow|yel·low|येल-लो|पीला
+window|win·dow|विन-डो|खिड़की
+pencil|pen·cil|पेन-सिल|लिखने की पेंसिल
+happy|hap·py|हैप-पी|खुश`,
+2:`family|fam·i·ly|फैम-इ-ली|परिवार
+beautiful|beau·ti·ful|ब्यू-टि-फुल|सुंदर
+important|im·por·tant|इम-पॉर-टेंट|ज़रूरी
+tomorrow|to·mor·row|टु-मॉर-रो|आने वाला कल
+hospital|hos·pi·tal|हॉस-पि-टल|अस्पताल
+umbrella|um·brel·la|अम-ब्रेल-ला|छाता
+remember|re·mem·ber|रि-मेम-बर|याद रखना
+yesterday|yes·ter·day|येस-टर-डे|बीता हुआ कल
+computer|com·pu·ter|कम-प्यू-टर|कंप्यूटर
+elephant|el·e·phant|एल-इ-फंट|हाथी`,
+3:`determination|de·ter·mi·na·tion|डि-टर-मि-ने-शन|पक्का इरादा
+education|ed·u·ca·tion|एज-यू-के-शन|शिक्षा
+information|in·for·ma·tion|इन-फर-मे-शन|जानकारी
+environment|en·vi·ron·ment|इन-वाइ-रन-मेंट|पर्यावरण
+university|u·ni·ver·si·ty|यू-नि-वर-सि-टी|विश्वविद्यालय
+opportunity|op·por·tu·ni·ty|ऑप-र-ट्यू-नि-टी|मौका
+imagination|i·mag·i·na·tion|इ-मैज-इ-ने-शन|कल्पना
+celebration|cel·e·bra·tion|सेल-इ-ब्रे-शन|जश्न
+responsibility|re·spon·si·bil·i·ty|रि-स्पॉन-सि-बिल-इ-टी|ज़िम्मेदारी
+vocabulary|vo·cab·u·lar·y|वो-कैब-यू-ल-री|शब्दावली`};
+const W={};
+for(const k in D)W[k]=D[k].split('\n').map(l=>{const[w,s,h,m]=l.split('|');return{w,s:s.split('·'),h:h.split('-'),m}});
+const LV={1:'आसान (2 हिस्से)',2:'बीच का (3 हिस्से)',3:'भारी (4+ हिस्से)'};
+const MD={learn:'📖 सीखो',quiz:'❓ क्विज़',look:'🔍 कोई भी word',diary:'📒 डायरी'};
+let lv=1,mode='learn',i=0,score=0,tot=0,done=false,q,opts,timers=[];
+const $=id=>document.getElementById(id);
+const L=()=>W[lv];
+function say(t,r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-IN';u.rate=slow?0.75:1;speechSynthesis.speak(u)}catch(e){}}
+function stop(){timers.forEach(clearTimeout);timers=[];try{speechSynthesis.cancel()}catch(e){}}
+function parts(x){return'<div class="parts">'+x.s.map((s,k)=>`<div class="p"><b>${s}</b><span>${x.h[k]}</span></div>`).join('<i>+</i>')+'</div>'}
+function tabs(){
+  $('lv').innerHTML=Object.keys(LV).map(k=>`<button class="${k==lv?'on':''}" onclick="setLv(${k})">${LV[k]}</button>`).join('');
+  $('md').innerHTML=Object.keys(MD).map(k=>`<button class="${k==mode?'on':''}" onclick="setMode('${k}')">${MD[k]}</button>`).join('');
+}
+function setLv(n){stop();lv=n;i=0;render()}
+function setMode(m){stop();mode=m;i=0;render()}
+function render(){tabs();mode==='learn'?learn():mode==='quiz'?quiz():mode==='look'?look():diary()}
+function learn(){
+  const x=L()[i];cur=x;if(!x.s){fill(x);return}
+  $('main').innerHTML=`<div class="card">${pic(x)}<div class="cnt">${jumpSel()} ${i+1} / ${L().length}</div>
+  <div class="big">${x.w}</div>${parts(x)}
+  <div class="eq">बोलो: <strong>${x.h.join('')}</strong><br>मतलब: <strong>${x.m}</strong></div>${exSec(x)}
+  <div class="row"><button class="pri" onclick="breakIt()">🔤 तोड़कर सुनो</button>${spdBtn()}<button onclick="say('${x.w}',0.8)">🔊 पूरा सुनो</button></div>
+  ${tools()}<div class="row"><button onclick="go(-1)">← पिछला</button><button onclick="go(1)">अगला →</button></div></div>`;
+}
+function go(d){stop();i=(i+d+L().length)%L().length;learn()}
+function breakIt(){
+  stop();
+  const ps=[...document.querySelectorAll('.p')];
+  ps.forEach(p=>p.classList.remove('on'));
+  ps.forEach((p,k)=>timers.push(setTimeout(()=>{ps.forEach(z=>z.classList.remove('on'));p.classList.add('on')},k*(slow?1200:900))));
+  timers.push(setTimeout(()=>{ps.forEach(z=>z.classList.add('on'));say(document.querySelector('.big').textContent,0.6)},ps.length*(slow?1200:900)));
+}
+function quiz(){
+  done=false;
+  const a=L().filter(z=>z.m);
+  q=a[Math.floor(Math.random()*a.length)];
+  opts=[q,...a.filter(z=>z!==q).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);
+  $('main').innerHTML=`<div class="card"><div class="cnt">स्कोर: ${score} / ${tot}</div>
+  <div class="big sm">${q.m}</div>
+  <div class="eq">इसका English word कौन सा है?<br>बोलने में: <strong>${q.h.join('')}</strong></div>
+  <div class="opts">${opts.map((o,k)=>`<button class="opt" onclick="pick(${k},this)"><span class="lt">${'ABCD'[k]}</span>${o.w}</button>`).join('')}</div>
+  <div id="fb"></div></div>`;
+}
+function pick(k,b){
+  if(done)return;done=true;tot++;
+  const right=opts[k]===q;
+  if(right){score++;b.classList.add('ok')}
+  else{b.classList.add('bad');[...document.querySelectorAll('.opt')][opts.indexOf(q)].classList.add('ok')}
+  $('fb').innerHTML=`<div class="fb">${right?'✅ सही!':'❌ सही जवाब: '+q.w}</div>${parts(q)}<button class="next" onclick="quiz()">अगला सवाल →</button>`;
+  document.querySelectorAll('#fb .p').forEach(p=>p.classList.add('on'));
+  say(q.w,0.8);
+}
+const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function look(){
+  $('main').innerHTML=`<div class="card"><div class="eq">कोई भी English word लिखो:</div><input id="q" class="inp" placeholder="जैसे: responsibility" autocapitalize="none" autocomplete="off"><div class="row"><button class="pri" onclick="ask()">🔍 तोड़कर समझाओ</button></div><div id="res"></div></div>`;
+  $('q').addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
+}
+async function ask(){
+  const w=$('q').value.trim().toLowerCase();
+  if(!w)return;
+  const r=$('res');
+  r.innerHTML='<div class="eq">ढूँढ रहा हूँ…</div>';
+  try{
+    const sample=typeof claude!=='undefined'?await claude.use('sample'):null;
+    if(!sample){r.innerHTML='<div class="eq">ये सुविधा यहाँ नहीं चल रही। ऊपर के 📖 और ❓ चलाओ।</div>';return}
+    const x=await sample.json(`Break the English word "${w}" into syllables for a Hindi speaker learning to read. Reply with JSON only, no other text: {"w":"word","s":["syl"],"h":["Devanagari sound of each syllable"],"m":"simple Hindi meaning","e":"one very easy English sentence using the word","eh":"Hindi translation of that sentence"}. Rules: s joined together must spell the word exactly; h must have the same number of items as s; use very simple Hindi.`);
+    if(!x||!Array.isArray(x.s)||!Array.isArray(x.h)||x.s.length!==x.h.length)throw new Error('bad');
+    x.w=E(x.w||w);x.s=x.s.map(E);x.h=x.h.map(E);x.m=E(x.m);
+    r.innerHTML=`${pic(x)}<div class="big">${x.w}</div>${parts(x)}<div class="eq">बोलो: <strong>${x.h.join('')}</strong><br>मतलब: <strong>${x.m}</strong></div>${exSec(x)}<div class="ex">${E(x.e||'')}<br>${E(x.eh||'')}</div><div class="row"><button class="pri" onclick="breakIt()">🔤 तोड़कर सुनो</button>${spdBtn()}<button onclick="say(document.querySelector('.big').textContent,0.8)">🔊 पूरा सुनो</button></div>`;
+  }catch(e){r.innerHTML='<div class="eq">नहीं हो पाया। word सही लिखो और फिर कोशिश करो।</div>'}
+}
+let cur=null;
+async function getJ(p){const s=typeof claude!=='undefined'?await claude.use('sample'):null;if(!s)throw new Error('na');return s.json(p)}
+function exBox(x){return x&&x.bk?`<div class="ex2"><b>📚 Book Style</b>${x.bk}<small>${x.bh||''}</small><b>💬 Simple Daily Style</b>${x.sm}<small>${x.sh||''}</small></div>`:''}
+function tools(){return `<div class="row"><button onclick="mic(this)">🎤 बोलो और चेक करो</button><button onclick="save(this)">📒 डायरी में रखो</button></div><div class="mres eq"></div>${cur&&cur.bk?'':'<div class="row"><button onclick="exs(this)">📝 वाक्य देखो</button></div>'}<div class="exs">${exBox(cur)}</div>`}
+async function exs(b){
+  const c=b.closest('.card'),d=c.querySelector('.exs');
+  d.textContent='ढूँढ रहा हूँ…';
+  try{
+    const x=await getJ(`The learner has weak English and reads textbooks. For the English word "${cur.w}" reply with JSON only: {"bk":"one sentence as it appears in a heavy textbook","bh":"simple Hindi meaning of it","sm":"the same idea in very simple everyday English with short easy words","sh":"simple Hindi meaning of it"}`);
+    ['bk','bh','sm','sh'].forEach(k=>cur[k]=E(x[k]||''));
+    d.innerHTML=exBox(cur);b.remove();
+  }catch(e){d.textContent='नहीं हो पाया। फिर से कोशिश करो।'}
+}
+async function ask(){
+  const w=$('q').value.trim().toLowerCase().replace(/[^a-z\-]/g,'');
+  if(!w)return;
+  const r=$('res');
+  r.innerHTML='<div class="eq">ढूँढ रहा हूँ…</div>';
+  try{
+    const x=await getJ(`You help a Hindi-speaking learner with weak English read textbooks. For the English word "${w}" reply with JSON only: {"w":"word","s":["syllables"],"h":["Devanagari sound of each syllable, like रि, स्पॉन, सि"],"m":"meaning in very simple everyday spoken Hindi, desi style, like explaining to a friend, max 12 words, no formal Hindi","bk":"one sentence as it appears in a heavy textbook using the word","bh":"simple Hindi meaning of that sentence","sm":"the same idea in very simple everyday English with short easy words","sh":"simple Hindi meaning of that sentence"}. Rules: s joined together must spell the word exactly; h must have the same number of items as s.`);
+    if(!x||!Array.isArray(x.s)||!Array.isArray(x.h)||x.s.length!==x.h.length)throw new Error('bad');
+    x.w=String(x.w||w).replace(/[^a-zA-Z\-]/g,'');
+    ['m','bk','bh','sm','sh'].forEach(k=>x[k]=E(x[k]||''));
+    x.s=x.s.map(E);x.h=x.h.map(E);
+    cur=x;
+    r.innerHTML=`${pic(x)}<div class="big">${x.w}</div>${parts(x)}<div class="eq">बोलो: <strong>${x.h.join('')}</strong><br>मतलब: <strong>${x.m}</strong></div>${exSec(x)}<div class="row"><button class="pri" onclick="breakIt()">🔤 तोड़कर सुनो</button>${spdBtn()}<button onclick="say(cur.w,0.8)">🔊 पूरा सुनो</button></div>${tools()}`;
+  }catch(e){r.innerHTML='<div class="eq">नहीं हो पाया। word सही लिखो और फिर कोशिश करो। ये सुविधा सिर्फ claude.ai लिंक में चलती है।</div>'}
+}
+function mic(b){
+  const c=b.closest('.card'),o=c.querySelector('.mres'),w=c.querySelector('.big').textContent.toLowerCase().replace(/[^a-z]/g,'');
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  c.querySelectorAll('.p').forEach(p=>p.classList.remove('bad','on','good'));
+  if(!SR){o.textContent='इस फोन में माइक चेक नहीं चलता। Chrome में खोलो।';return}
+  try{speechSynthesis.cancel()}catch(e){}
+  const r=new SR();r.lang='en-IN';r.maxAlternatives=5;
+  o.textContent='🎤 अब बोलो…';
+  r.onresult=e=>check(c,w,[...e.results[0]].map(a=>a.transcript.toLowerCase().replace(/[^a-z]/g,'')),o);
+  r.onerror=e=>{o.textContent=(e.error==='not-allowed'||e.error==='service-not-allowed')?'माइक की इजाज़त नहीं मिली। Chrome को माइक की इजाज़त दो।':e.error==='no-speech'?'कुछ सुनाई नहीं दिया। फिर से बोलो।':'नहीं हो पाया। फिर से कोशिश करो।'};
+  r.onend=()=>b.classList.remove('rec');
+  const go=()=>{b.classList.add('rec');o.innerHTML='<span class="pulse"></span> सुन रहा हूँ… अब बोलो';try{r.start()}catch(e){b.classList.remove('rec');o.textContent='फिर से दबाओ।'}};
+  const md=navigator.mediaDevices;
+  if(md&&md.getUserMedia){o.textContent='माइक की इजाज़त माँग रहा हूँ…';md.getUserMedia({audio:true}).then(s=>{s.getTracks().forEach(t=>t.stop());go()}).catch(()=>{o.textContent='माइक की इजाज़त नहीं मिली। ऊपर 🔒 दबाकर Microphone को Allow करो, फिर दोबारा दबाओ।'})}else go();
+}
+function check(c,w,alts,o){
+  const ps=[...c.querySelectorAll('.p')];
+  const lens=ps.map(p=>p.querySelector('b').textContent.replace(/[^a-z]/gi,'').length);
+  if(alts.includes(w)){ps.forEach(p=>p.classList.add('good'));o.innerHTML='✅ <b>बिल्कुल सही!</b> सारे हिस्से हरे हैं।';return}
+  let best=alts[0]||'',ok=null,sc=-1;
+  alts.forEach(a=>{const r=align(w,a),n=r.filter(Boolean).length;if(n>sc){sc=n;best=a;ok=r}});
+  if(!ok||lens.reduce((x,y)=>x+y,0)!==w.length){o.innerHTML=`❌ मैंने सुना: <b>${best||'कुछ नहीं'}</b><br>फिर से धीरे-धीरे बोलो।`;return}
+  let p0=0;const bad=[];
+  ps.forEach((p,k)=>{const g=ok.slice(p0,p0+lens[k]).every(Boolean);p0+=lens[k];p.classList.add(g?'good':'bad');if(!g)bad.push(p.querySelector('b').textContent)});
+  if(!bad.length){o.innerHTML=`🟩 सारे हिस्से सही हैं, पर मुझे कुछ extra सुनाई दिया: <b>${best}</b>। एक बार और बोलो।`;return}
+  o.innerHTML=`❌ मैंने सुना: <b>${best||'कुछ नहीं'}</b><br>🟩 हरा हिस्सा सही था। 🟥 लाल पर ध्यान दो: <b>${bad.join(' + ')}</b>।<br>पहले 🔤 तोड़कर सुनो, फिर दोबारा बोलो।`;
+}
+const dget=()=>{try{return JSON.parse(localStorage.getItem('diary')||'[]')}catch(e){return[]}};
+const dset=a=>{try{localStorage.setItem('diary',JSON.stringify(a));return true}catch(e){return false}};
+function save(b){
+  if(!cur)return;
+  const a=dget();
+  const k=a.findIndex(z=>z.w===cur.w);
+  if(k<0)a.push(cur);else a[k]=cur;
+  const ok=dset(a);b.textContent=ok?'✅ डायरी में रखा':'⚠️ सेव नहीं हुआ';toast(ok?'Word saved to Diary! ✅':'Could not save. Try again.');
+}
+function diary(){
+  const a=dget();
+  $('main').innerHTML=`<div class="tot">📒 कुल सेव words: <b>${a.length}</b></div>`+(a.length?a.map((x,k)=>`<div class="card">${pic(x)}<div class="big sm">${x.w}</div>${parts(x)}<div class="eq">बोलो: <strong>${x.h.join('')}</strong><br>मतलब: <strong>${x.m}</strong></div>${exSec(x)}${exBox(x)}<div class="row"><button onclick="say('${x.w}',0.8)">🔊 सुनो</button><button onclick="mic(this)">🎤 चेक</button><button onclick="del(${k})">🗑 हटाओ</button></div><div class="mres eq"></div></div>`).join(''):'<div class="card"><div class="eq">डायरी खाली है। किसी word के कार्ड पर "📒 डायरी में रखो" दबाओ।</div></div>')
+}
+function toast(m){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2000)}
+function del(k){const a=dget();a.splice(k,1);dset(a);diary();toast('Word removed')}
+const WORDS='acceleration thermodynamics electromagnetic superconductivity gravitation equilibrium oscillations viscosity polarization refraction diffraction interference capacitance inductance semiconductor photoelectric radioactivity momentum resonance velocity displacement centripetal centrifugal trajectory amplitude wavelength frequency friction elasticity magnetism electrostatic potential kinetic transformation conservation modulation demodulation propagation dispersion magnitude photosynthesis polymerization neutralization crystallization electronegativity electrochemistry hybridization stoichiometry oxidation reduction catalyst endothermic exothermic hydrocarbon allotrope isomerism distillation sublimation chromatography precipitation fermentation concentration solubility saturation corrosive malleability ductility effervescence deliquescence efflorescence colloidal coagulation adsorption absorption radioisotope valency metallurgy deoxyribonucleic mitochondria chloroplast ribosome chromosome differentiation specialization reproduction fertilization metamorphosis osmoregulation transpiration respiration circulation phagocytosis pinocytosis homeostasis biodegradable pathogen antigen antibody immunity inoculation hemoglobin cytoplasm membrane microorganism evolution adaptation ecosystem biodiversity classification nomenclature phosphorylation regeneration locomotion coordination invertebrate vertebrate herbivorous responsibility circumstances extraordinary determination comprehensive significant consequence acknowledgment characteristic investigation representation implementation sophisticated perspective interpretation contradiction demonstration hypocrisy melancholy unprecedented procrastination anticipation disappointment discrimination vulnerability authenticity simultaneous inevitable perseverance conscientious ambiguity exaggeration compassion deterioration empathy nostalgia solitude eloquent peculiar reluctance substantial treacherous monotonous magnificent bewildered astonishment apprehension indifferent hospitality generosity gratitude humiliation reconciliation suspicion turbulence vengeance whispering zealously anonymous benevolent catastrophe defiance elaborate flamboyant gigantic hindrance illustrious jeopardy knowledgeable legitimate meticulous notorious obstinate plausible quarantine resilient skeptical tenacious unanimous';
+const wcg=()=>{try{return JSON.parse(localStorage.getItem('wc')||'{}')}catch(e){return{}}};
+const sy=w=>{const m=w.replace(/e$/,'').match(/[aeiouy]+/g);return m?m.length:1};
+const have=new Set(Object.values(W).flat().map(x=>x.w));
+[...new Set(WORDS.split(' '))].forEach(w=>{if(have.has(w))return;const n=sy(w);W[n<=2?1:n===3?2:3].push({w})});
+{const c=wcg();Object.values(W).flat().forEach(x=>{if(!x.s&&c[x.w])Object.assign(x,c[x.w])})}
+const P=w=>`You help a Hindi-speaking learner with weak English read class 11-12 textbooks. For the English word '${w}' reply with JSON only, using these keys: s (array of syllables that joined together spell the word exactly), h (array of the Devanagari sound of each syllable, same length as s), m (meaning in very simple everyday spoken Hindi, desi style, like explaining to a friend, max 12 words, no formal Hindi), bk (one sentence as it appears in a heavy textbook using the word), bh (simple Hindi meaning of that sentence), sm (the same idea in very simple everyday English with short easy words), sh (simple Hindi meaning of that sentence).`;
+function norm(d){
+  if(!d||!Array.isArray(d.s)||!Array.isArray(d.h)||d.s.length!==d.h.length)throw new Error('bad');
+  const o={s:d.s.map(E),h:d.h.map(E)};
+  ['m','bk','bh','sm','sh'].forEach(k=>o[k]=E(d[k]||''));
+  return o;
+}
+const jumpSel=()=>`<select aria-label="word" onchange="jump(+this.value)">${L().map((z,k)=>`<option value="${k}"${k===i?' selected':''}>${z.w}</option>`).join('')}</select>`;
+function jump(k){stop();i=k;learn()}
+async function fill(x){
+  $('main').innerHTML=`<div class="card">${pic(x)}<div class="cnt">${jumpSel()} ${i+1} / ${L().length}</div><div class="big">${x.w}</div><div class="eq">तैयार कर रहा हूँ…<br><small>पहली बार थोड़ा समय लगता है। फिर ये फोन में सेव रहेगा।</small></div><div class="row"><button onclick="go(-1)">← पिछला</button><button onclick="go(1)">अगला →</button></div></div>`;
+  try{
+    const d=norm(await getJ(P(x.w)));
+    Object.assign(x,d);
+    const c=wcg();c[x.w]=d;
+    try{localStorage.setItem('wc',JSON.stringify(c))}catch(e){}
+    if(cur===x&&mode==='learn')learn();
+  }catch(e){
+    if(cur===x&&mode==='learn')$('main').innerHTML=`<div class="card"><div class="big">${x.w}</div><div class="eq">नहीं हो पाया। ये सुविधा सिर्फ claude.ai के लिंक में चलती है।</div><div class="row"><button class="pri" onclick="learn()">🔄 फिर कोशिश करो</button><button onclick="go(1)">अगला →</button></div></div>`;
+  }
+}
+const SUBJ={};
+{let s='e';WORDS.split(' ').forEach(w=>{if(w==='acceleration')s='p';else if(w==='photosynthesis')s='c';else if(w==='deoxyribonucleic')s='b';else if(w==='responsibility')s='e';SUBJ[w]=s});SUBJ.photosynthesis='b'}
+const SB={p:['भौतिकी','#2563eb','atom'],c:['रसायन','#7c3aed','flask'],b:['जीव विज्ञान','#16a34a','leaf'],e:['English','#ea580c','book'],g:['रोज़ के words','#0891b2','bubble']};
+const IC={atom:'<circle cx="32" cy="32" r="4" fill="#fff"/><ellipse cx="32" cy="32" rx="26" ry="10"/><ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(60 32 32)"/><ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(120 32 32)"/>',flask:'<path d="M26 8h12M28 8v16L12 50a5 5 0 0 0 4 8h32a5 5 0 0 0 4-8L36 24V8"/><path d="M19 42h26"/>',leaf:'<path d="M10 54C10 28 26 10 54 10c0 28-18 44-44 44z"/><path d="M10 54L36 28"/>',book:'<path d="M6 14h21a5 5 0 0 1 5 5v35a5 5 0 0 0-5-5H6zM58 14H37a5 5 0 0 0-5 5v35a5 5 0 0 1 5-5h21z"/>',bubble:'<path d="M8 12h48v32H28L16 55V44H8z"/><path d="M20 24h24M20 33h14"/>'};
+const EM={};
+'water:💧,mother:👩,father:👨,teacher:🧑‍🏫,market:🛒,doctor:🩺,yellow:🟡,window:🪟,pencil:✏️,happy:😊,family:👪,beautiful:🌸,important:⭐,tomorrow:🌅,hospital:🏥,umbrella:☂️,remember:🧠,yesterday:🌇,computer:💻,elephant:🐘,determination:💪,education:🎓,information:📰,environment:🌳,university:🏛️,opportunity:🚪,imagination:💭,celebration:🎉,responsibility:🤝,vocabulary:📖,acceleration:🚀,thermodynamics:🌡️,electromagnetic:🧲,magnetism:🧲,gravitation:🍎,equilibrium:⚖️,refraction:🌈,velocity:🏃,kinetic:🏃,friction:🔥,wavelength:🌊,frequency:📻,resonance:🎵,radioactivity:☢️,radioisotope:☢️,photosynthesis:🌿,crystallization:💎,distillation:⚗️,fermentation:🍞,catalyst:⚡,hydrocarbon:⛽,corrosive:⚠️,colloidal:🥛,mitochondria:🔋,chloroplast:🍃,chromosome:🧬,deoxyribonucleic:🧬,respiration:🫁,circulation:❤️,metamorphosis:🦋,reproduction:👶,pathogen:🦠,microorganism:🦠,antibody:🛡️,immunity:🛡️,inoculation:💉,hemoglobin:🩸,evolution:🐒,ecosystem:🌍,biodiversity:🌏,vertebrate:🦴,herbivorous:🐄,quarantine:😷,gratitude:🙏,hospitality:🏨,compassion:🤲,solitude:🧘,melancholy:😔,catastrophe:🌪️,turbulence:🌪️,hindrance:🚧,gigantic:🏔️,magnificent:🏰,bewildered:😵,astonishment:😲,suspicion:🕵️,anonymous:🎭,ambiguity:❓'.split(',').forEach(p=>{const k=p.indexOf(':');EM[p.slice(0,k)]=p.slice(k+1)});
+function pic(x){
+  const m=SB[SUBJ[x.w]||'g'],e=EM[x.w]||'',dn=x.s?x.s.length:sy(x.w),dl=dn<=2?1:dn===3?2:3;
+  return `<div class="pic${e?'':' noem'}" style="--c:${m[1]}"><svg class="bg" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[m[2]]}</svg>${e?`<span class="em">${e}</span>`:''}<div class="tags"><small>${m[0]}</small><small class="lv">${LB[dl]}</small></div></div>`;
+}
+setTimeout(()=>{const s=$('splash');if(s){s.classList.add('hide');setTimeout(()=>s.remove(),700)}},2000);
+let slow=false;try{slow=localStorage.getItem('slow')==='1'}catch(e){}
+const LB=['','बेसिक','मध्यम','एडवांस'];
+const EXS=`water|I drink water every day.|मैं रोज़ पानी पीता हूँ।
+mother|My mother cooks food for us.|मेरी माँ हमारे लिए खाना बनाती है।
+father|My father goes to work early.|मेरे पिता सुबह जल्दी काम पर जाते हैं।
+teacher|The teacher is teaching us.|शिक्षक हमें पढ़ा रहे हैं।
+market|We buy fruits in the market.|हम बाज़ार में फल खरीदते हैं।
+doctor|The doctor gave me medicine.|डॉक्टर ने मुझे दवा दी।
+yellow|The sun looks yellow.|सूरज पीला दिखता है।
+window|Please open the window.|कृपया खिड़की खोलो।
+pencil|I write with a pencil.|मैं पेंसिल से लिखता हूँ।
+happy|I am happy today.|मैं आज खुश हूँ।
+family|My family lives in a village.|मेरा परिवार गाँव में रहता है।
+beautiful|The garden looks beautiful.|बगीचा सुंदर दिखता है।
+important|Sleep is important for health.|सेहत के लिए नींद ज़रूरी है।
+tomorrow|I will study tomorrow.|मैं कल पढ़ाई करूँगा।
+hospital|He is in the hospital.|वह अस्पताल में है।
+umbrella|Take an umbrella, it may rain.|छाता ले जाओ, बारिश हो सकती है।
+remember|Please remember this word.|कृपया यह word याद रखो।
+yesterday|I went to school yesterday.|मैं बीते कल स्कूल गया था।
+computer|He works on a computer.|वह कंप्यूटर पर काम करता है।
+elephant|An elephant is a big animal.|हाथी एक बड़ा जानवर है।
+determination|With determination, you can win.|पक्के इरादे से तुम जीत सकते हो।
+education|Education changes our life.|शिक्षा हमारी ज़िंदगी बदलती है।
+information|I need some information.|मुझे कुछ जानकारी चाहिए।
+environment|We must protect the environment.|हमें पर्यावरण को बचाना चाहिए।
+university|She studies in a university.|वह विश्वविद्यालय में पढ़ती है।
+opportunity|This is a good opportunity.|यह एक अच्छा मौका है।
+imagination|Children have great imagination.|बच्चों की कल्पना बहुत अच्छी होती है।
+celebration|We had a big celebration.|हमने बड़ा जश्न मनाया।
+responsibility|Taking care of parents is our responsibility.|माता-पिता का ध्यान रखना हमारी ज़िम्मेदारी है।
+vocabulary|Read daily to improve your vocabulary.|शब्दावली बढ़ाने के लिए रोज़ पढ़ो।`;
+EXS.split('\n').forEach(l=>{const[w,a,b]=l.split('|');Object.values(W).flat().forEach(x=>{if(x.w===w&&!x.sm){x.sm=a;x.sh=b}})});
+const exSec=x=>x&&x.sm?`<div class="exsec"><b>📝 उदाहरण वाक्य</b>${x.sm}<small>${x.sh||''}</small></div>`:'';
+const spdBtn=()=>`<button class="spd${slow?' on':''}" aria-pressed="${slow}" aria-label="धीमी आवाज़ 0.75x" onclick="togSlow()">🐢 0.75x</button>`;
+function syncSlow(){document.querySelectorAll('.spd').forEach(b=>{b.classList.toggle('on',slow);b.setAttribute('aria-pressed',slow)});const c=$('slowc');if(c)c.checked=slow}
+function togSlow(){slow=!slow;try{localStorage.setItem('slow',slow?'1':'0')}catch(e){}syncSlow();toast(slow?'धीमी आवाज़ चालू (0.75x)':'आवाज़ सामान्य गति पर')}
+function togPanel(b){const p=$('panel');p.hidden=!p.hidden;b.setAttribute('aria-expanded',String(!p.hidden));syncSlow()}
+function togTheme(d){document.documentElement.setAttribute('data-theme',d?'dark':'light')}
+{const d=$('darkc');if(d)d.checked=matchMedia('(prefers-color-scheme: dark)').matches}
+function align(t,h){
+  const n=t.length,m=h.length,d=[];
+  for(let i=0;i<=n;i++)d[i]=[i];
+  for(let j=1;j<=m;j++)d[0][j]=j;
+  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(t[i-1]===h[j-1]?0:1));
+  const ok=Array(n).fill(false);let i=n,j=m;
+  while(i>0&&j>0){
+    if(t[i-1]===h[j-1]&&d[i][j]===d[i-1][j-1]){ok[i-1]=true;i--;j--}
+    else if(d[i][j]===d[i-1][j-1]+1){i--;j--}
+    else if(d[i][j]===d[i-1][j]+1){i--}
+    else j--;
+  }
+  return ok;
+}
+render();
+</script>
+</body>
+</html>
