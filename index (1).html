@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>इंग्लिश शब्द तोड़ो</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22><circle cx=%2224%22 cy=%2224%22 r=%2224%22 fill=%22%2358cc02%22/><rect x=%228%22 y=%2216%22 width=%2214%22 height=%2216%22 rx=%224.5%22 fill=%22white%22/><rect x=%2226%22 y=%2216%22 width=%2214%22 height=%2216%22 rx=%224.5%22 fill=%22%23ffc800%22/></svg>">
+<style>
+:root{--bg:#0f172a;--bg2:#0b1120;--card:#1e293b;--bd:rgba(255,255,255,.08);--g:#22c55e;--g2:#10b981;--gd:#15803d;--sl:#334155;--sl2:#475569;--mu:#94a3b8;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:clamp(13px,2.1vh,16px)}
+html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none;background:var(--bg2)}
+body{position:fixed;inset:0;color:#fff;font:600 1rem/1.35 Inter,Nunito,system-ui,"Noto Sans Devanagari",sans-serif;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+button{font:inherit;color:inherit;cursor:pointer}
+input{-webkit-user-select:text;user-select:text}
+#app{position:relative;display:flex;flex-direction:column;width:100%;max-width:430px;height:100%;height:100dvh;margin:0 auto;overflow:hidden;background:radial-gradient(120% 55% at 50% -8%,rgba(34,197,94,.11),transparent 62%),var(--bg);box-shadow:0 0 0 1px var(--bd)}
+#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;background:radial-gradient(circle at 50% 40%,#0f2a1d,#070b14 70%);transition:opacity .45s}
+#splash.hide{opacity:0;pointer-events:none}
+.orb{width:6.5rem;height:6.5rem;border-radius:50%;box-shadow:0 0 50px rgba(34,197,94,.55),0 0 110px rgba(34,197,94,.25);animation:glow 1.6s ease-in-out infinite}
+.orb.sm{width:4rem;height:4rem;margin:.2rem auto;animation:none}.orb svg{width:100%;height:100%;display:block}
+@keyframes glow{50%{transform:scale(1.07);box-shadow:0 0 70px rgba(34,197,94,.75),0 0 140px rgba(34,197,94,.35)}}
+#splash h1{margin:.4rem 0 0;font-size:1.7rem}
+.ld{width:7.5rem;height:4px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.ld i{display:block;height:100%;width:40%;border-radius:9px;background:linear-gradient(90deg,var(--g),var(--g2));animation:ld 1s ease-in-out infinite}
+@keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+#splash p{margin:0;color:var(--mu);font-size:.9rem}
+.top{flex:none;position:relative;display:flex;align-items:center;gap:.5rem;height:3.4rem;box-sizing:content-box;padding:env(safe-area-inset-top,0px) .8rem 0}
+.xpl{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--bd)}.xpl i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g),var(--g2));transition:width .5s}
+.brand{display:flex;align-items:center;gap:.5rem;flex:1;min-width:0}.brand .lg{width:1.9rem;height:1.9rem;flex:none}.brand .lg svg{width:100%;height:100%;display:block}
+.brand b{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st{display:flex;gap:.5rem;font-size:.78rem;font-weight:800;color:var(--mu);white-space:nowrap}
+.ib{width:2.3rem;height:2.3rem;flex:none;border-radius:50%;border:1px solid var(--bd);background:rgba(255,255,255,.04);display:grid;place-items:center;padding:0}
+.ib svg{width:1.15rem;height:1.15rem;stroke:var(--mu);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:380px){.brand b{display:none}}
+main{flex:1;min-height:0;display:flex;flex-direction:column;gap:.55rem;padding:.55rem .8rem;overflow:hidden}
+.nav{flex:none;display:grid;grid-template-columns:repeat(5,1fr);height:4.1rem;box-sizing:content-box;padding:.2rem .5rem env(safe-area-inset-bottom,0px);background:rgba(15,23,42,.88);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--bd)}
+.nav button{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;color:var(--mu);font-size:.7rem;font-weight:700;border-radius:14px;transition:transform .12s,color .2s}
+.nav button:active{transform:scale(.92)}.nav button.cur{color:var(--g)}
+.nav svg{width:1.55rem;height:1.55rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.seg{flex:none;display:flex;padding:3px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--bd)}
+.seg button{flex:1;border:0;background:none;color:var(--mu);padding:.42rem 0;border-radius:11px;font-weight:800;font-size:.88rem;transition:background .2s,color .2s}
+.seg button.on{background:var(--sl);color:#fff}
+.card{background:linear-gradient(180deg,rgba(30,41,59,.95),rgba(30,41,59,.72));border:1px solid var(--bd);border-radius:22px;padding:.8rem;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.lc,.bcard{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;overflow:hidden;animation:rise .3s ease}
+.bcard{justify-content:space-around}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.chd{width:100%;display:flex;align-items:center;justify-content:space-between}
+.ar{width:2.3rem;height:2.3rem;border-radius:50%;border:1px solid var(--bd);background:rgba(255,255,255,.05);display:grid;place-items:center;padding:0}
+.ar svg{width:1.2rem;height:1.2rem;stroke:var(--mu);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.em{font-size:2.5rem;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
+.cnt{color:var(--mu);font-size:.78rem}
+.wd{font-size:2.2rem;font-weight:900;letter-spacing:.3px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.45rem}.chips i{font-style:normal;color:var(--sl2)}
+.chip{position:relative;min-width:3.2rem;padding:.35rem .7rem .3rem;border-radius:14px;border:1px solid var(--bd);border-bottom:4px solid #1e293b;background:var(--sl);color:#fff;transition:background .25s,transform .1s}
+.chip:active{transform:translateY(3px);border-bottom-width:1px}
+.chip b{display:block;font-size:1.2rem;line-height:1.15}.chip small{display:block;color:var(--mu);font-size:.72rem;font-weight:700}
+.pop{animation:spring .5s cubic-bezier(.3,1.7,.5,1)}
+@keyframes spring{0%{transform:scale(.86)}55%{transform:scale(1.12)}100%{transform:scale(1)}}
+.chip.on,.chip.good{background:var(--g);color:#04210f;border-bottom-color:var(--gd)}.chip.on small,.chip.good small{color:#14532d}
+.chip.good::after,.chip.try::after{position:absolute;top:-7px;right:-7px;width:1.3rem;height:1.3rem;border-radius:50%;display:grid;place-items:center;font-size:.75rem;border:2px solid var(--card)}
+.chip.good::after{content:"✓";background:var(--g);color:#04210f}
+.chip.try{border:1px dashed rgba(255,255,255,.65);animation:wob .5s}.chip.try::after{content:"↻";background:#fff;color:#0f172a}
+@keyframes wob{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+.ph{color:var(--mu);font-size:.88rem}.ph b{color:#fff}
+.mn{font-size:1.15rem;font-weight:800}.mn.sm{font-size:1rem}
+.ex{font-size:.82rem;color:var(--mu);line-height:1.3;max-height:3.3rem;overflow:hidden}.ex span{display:block;color:#e2e8f0}
+.ics,.acts{display:flex;gap:.7rem;justify-content:center;align-items:center}
+.ic{width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--bd);background:var(--sl);display:grid;place-items:center;padding:0;box-shadow:0 3px 0 #1e293b;transition:transform .08s,box-shadow .08s}
+.ic:active{transform:translateY(3px);box-shadow:none}
+.ic svg{width:1.25rem;height:1.25rem;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ic .tt{font-size:1.15rem;filter:grayscale(1) brightness(1.6)}
+.ic.on{background:var(--g);box-shadow:0 3px 0 var(--gd)}.ic.on svg{stroke:#04210f;fill:#04210f}
+.micw{flex:none;display:grid;justify-items:center;gap:.25rem}
+.mic{position:relative;width:4rem;height:4rem;border-radius:50%;border:0;background:var(--sl);box-shadow:0 5px 0 #1e293b;display:grid;place-items:center;transition:transform .08s,box-shadow .08s}
+.mic svg{width:1.7rem;height:1.7rem;stroke:#fff;fill:none;stroke-width:2.1;stroke-linecap:round}
+.mic:active{transform:translateY(5px);box-shadow:none}
+.mic[data-s=ready]{animation:idle 2.4s ease-in-out infinite}@keyframes idle{50%{box-shadow:0 5px 0 #1e293b,0 0 0 9px rgba(148,163,184,.12)}}
+.mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--g);opacity:0;pointer-events:none}
+.wv{display:none;gap:3px;align-items:center;height:1.6rem}.wv i{width:4px;height:6px;border-radius:2px;background:#04210f;animation:wave .8s ease-in-out infinite}
+.wv i:nth-child(2){animation-delay:.12s}.wv i:nth-child(3){animation-delay:.24s}.wv i:nth-child(4){animation-delay:.36s}@keyframes wave{50%{height:1.4rem}}
+.mic[data-s=listen],.mic[data-s=ok]{background:var(--g);box-shadow:0 5px 0 var(--gd)}
+.mic[data-s=listen] svg{display:none}.mic[data-s=listen] .wv{display:flex}.mic[data-s=ok] svg{stroke:#04210f}
+.mic[data-s=listen]::before{animation:ring 1.4s infinite}.mic[data-s=listen]::after{animation:ring 1.4s .6s infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+.mres{font-size:.82rem;color:var(--mu);text-align:center;min-height:1.2em;padding:0 .5rem}.mres.ok{color:var(--g)}
+.slots{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;transition:gap .4s}
+.slot{min-width:3.2rem;height:2.9rem;padding:0 .6rem;border:1.5px dashed rgba(255,255,255,.25);border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:1.15rem;transition:background .35s,border-radius .35s,color .35s}
+.slot.w{min-width:2rem;height:2.3rem;font-size:.95rem}.slot.f{border:1px solid var(--bd);background:var(--sl)}
+.slots.m{gap:0}.slots.m .slot{border:0;border-radius:0;background:var(--g);color:#04210f}
+.slots.m .slot:first-child{border-radius:14px 0 0 14px}.slots.m .slot:last-child{border-radius:0 14px 14px 0}
+.pill{background:linear-gradient(180deg,#22c55e,#10b981);color:#04210f;font-weight:900;font-size:1.8rem;padding:.35rem 1.6rem;border-radius:99px;box-shadow:0 0 34px rgba(34,197,94,.55),0 4px 0 var(--gd);animation:spring .6s cubic-bezier(.3,1.7,.5,1)}
+.pill.s{font-size:1.05rem;padding:.5rem 1rem;border-radius:18px;line-height:1.3}
+.pool{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem}.chip.used{visibility:hidden}.chip.hint{box-shadow:0 0 0 3px rgba(34,197,94,.75)}
+.chip.shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.cta,.sec{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:0;border-radius:16px;padding:.7rem 1.2rem;font-weight:900;text-decoration:none;transition:transform .08s,box-shadow .08s}
+.cta{background:linear-gradient(180deg,#22c55e,#10b981);color:#04210f;box-shadow:0 4px 0 var(--gd)}
+.sec{background:var(--sl);border:1px solid var(--bd);box-shadow:0 4px 0 #1e293b;font-weight:800}
+.cta:active,.sec:active{transform:translateY(4px);box-shadow:none}
+.bar{height:6px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--g2));border-radius:9px;transition:width .4s}
+.qp{flex:none;display:flex;align-items:center;gap:.6rem}.qp .bar{flex:1}.qp small{color:var(--mu)}
+.opts{width:100%;display:grid;gap:.45rem}
+.opt{display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;border-radius:14px;border:1px solid var(--bd);border-bottom:4px solid #1e293b;background:var(--sl);font-size:1.05rem;font-weight:800;text-align:left}
+.opt:active{transform:translateY(3px);border-bottom-width:1px}.opt .lt{width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);font-size:.8rem}
+.opt.right{background:#22c55e;color:#04210f;border-color:#22c55e;border-bottom-color:#15803d}
+.opt.wrong{background:#ef4444;color:#fff;border-color:#ef4444;border-bottom-color:#b91c1c;animation:shakeX .5s}
+.opt.right .lt,.opt.wrong .lt{background:rgba(0,0,0,.2);border-color:transparent}
+@keyframes shakeX{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+.fb{font-weight:800}.fb.ok{color:var(--g)}
+.dl{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;gap:.5rem;align-content:start}
+.di{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border-radius:16px;background:var(--card);border:1px solid var(--bd)}
+.di>div:first-child{flex:1;min-width:0}.di b{font-size:1.1rem}.di small{display:block;color:var(--mu)}.di .ic{width:2.4rem;height:2.4rem;flex:none}
+#sheet{position:absolute;inset:0;z-index:40;display:none;align-items:flex-end;background:rgba(2,6,23,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+#sheet.on{display:flex;animation:fade .2s}@keyframes fade{from{opacity:0}}
+.sp{width:100%;max-height:84dvh;overflow:auto;background:var(--card);border:1px solid var(--bd);border-bottom:0;border-radius:26px 26px 0 0;padding:.6rem 1.1rem calc(1rem + env(safe-area-inset-bottom,0px));text-align:center;animation:up .28s cubic-bezier(.2,.9,.3,1)}
+@keyframes up{from{transform:translateY(100%)}}
+.grab{width:2.6rem;height:5px;border-radius:9px;background:var(--sl2);margin:0 auto .7rem}
+.sp h3{margin:.2rem 0}.sp p{margin:0 0 .7rem;color:var(--mu)}.sp .cta,.sp .sec{width:100%;margin-top:.5rem}.sp .big{font-size:2.4rem}
+.srow{display:flex;justify-content:space-between;padding:.6rem .2rem;border-top:1px solid var(--bd);text-align:left}.cr{font-size:.82rem;color:var(--mu);margin:.8rem 0 0!important}
+.sq input{width:100%;font:inherit;font-size:16px;padding:.75rem .9rem;border-radius:14px;border:1px solid var(--bd);background:var(--bg);color:#fff;outline:none}.sq input:focus{border-color:var(--g)}
+.vf{display:flex;gap:.4rem}.vf span{flex:1;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:.3rem .1rem;font-size:.7rem;color:var(--mu)}.vf b{display:block;color:#fff;font-size:.85rem}
+.tn{margin-top:.45rem;padding:.45rem .7rem;border-left:3px solid var(--g);background:var(--bg);border-radius:8px;text-align:left;font-size:.92rem}.tn small{display:block;color:var(--mu);font-size:.74rem}
+.note{margin-top:.5rem;color:var(--mu);font-size:.8rem}
+#toast{position:absolute;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#fff;color:#0f172a;padding:.5rem 1rem;border-radius:99px;font-weight:800;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .25s;z-index:50;max-width:88%;text-align:center}#toast.on{opacity:1}
+.xpop{position:absolute;left:50%;top:38%;transform:translateX(-50%);z-index:60;background:linear-gradient(180deg,#22c55e,#10b981);color:#04210f;font-weight:900;font-size:1.1rem;padding:.5rem 1.1rem;border-radius:99px;box-shadow:0 0 30px rgba(34,197,94,.6);animation:flo 1.5s ease forwards;pointer-events:none}
+@keyframes flo{15%{transform:translate(-50%,-8px) scale(1.15)}to{transform:translate(-50%,-130px);opacity:0}}
+.cf{position:absolute;top:-14px;width:9px;height:14px;z-index:55;pointer-events:none;animation:fall 1.6s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.bk{flex:1;min-height:0;display:flex;flex-direction:column;gap:.6rem;overflow:hidden;text-align:center}
+.lcard{display:flex;flex-direction:column;align-items:flex-start;gap:.1rem;width:100%;padding:.7rem .9rem;border-radius:16px;border:1px solid var(--bd);border-bottom:4px solid #1e293b;background:var(--sl);text-align:left}
+.lcard:active{transform:translateY(3px);border-bottom-width:1px}.lcard b{font-size:1.05rem}.lcard small{color:var(--mu)}
+.sum{font-size:.88rem;color:#e2e8f0;text-align:left;line-height:1.45;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:.5rem .7rem}
+.wgrid{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;overflow-y:auto;min-height:0}.wgrid .chip{min-width:0;padding:.3rem .6rem}.wgrid .chip b{font-size:.9rem}
+.rd{flex:1;min-height:0;overflow-y:auto;text-align:left;font-size:1.05rem;line-height:1.8;background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:.7rem .8rem;-webkit-user-select:text;user-select:text}
+.w{border-bottom:2px solid transparent;border-radius:3px;cursor:pointer}.w.k{border-bottom-color:var(--g)}.w.h{border-bottom:2px dotted var(--mu)}.w:active{background:rgba(34,197,94,.25)}
+.ta{flex:1;min-height:0;width:100%;resize:none;font:inherit;font-size:16px;line-height:1.5;padding:.7rem;border-radius:14px;border:1px solid var(--bd);background:var(--bg);color:#fff;outline:none;-webkit-user-select:text;user-select:text}.ta:focus{border-color:var(--g)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="splash"><div class="orb lg"></div><h1>इंग्लिश शब्द तोड़ो</h1><div class="ld"><i></i></div><p>लोड हो रहा है...</p></div>
+<div id="app">
+<header class="top"><div class="brand"><div class="lg"></div><b>इंग्लिश शब्द तोड़ो</b></div><div class="st"><span id="stk"></span><span id="sxp"></span><span id="sht"></span><span id="lvn"></span></div><button class="ib" id="bse" onclick="openSearch()" aria-label="खोजो"></button><button class="ib" id="bpr" onclick="profile()" aria-label="प्रोफाइल"></button><div class="xpl"><i id="lvb"></i></div></header>
+<main id="main"></main>
+<nav class="nav" id="nav"></nav>
+<div id="sheet" role="dialog" aria-modal="true" onclick="if(event.target===this)closeSheet()"><div class="sp" id="sp"></div></div>
+<div id="toast" role="status"></div>
+</div>
+<script>
+const D={1:`water|wa·ter|वॉ-टर|पानी
+mother|moth·er|मद-र|माँ
+father|fa·ther|फा-दर|पिता
+teacher|teach·er|टी-चर|शिक्षक
+market|mar·ket|मार-किट|बाज़ार
+doctor|doc·tor|डॉक-टर|इलाज करने वाले
+yellow|yel·low|येल-लो|पीला
+window|win·dow|विन-डो|खिड़की
+pencil|pen·cil|पेन-सिल|लिखने की पेंसिल
+happy|hap·py|हैप-पी|खुश`,
+2:`family|fam·i·ly|फैम-इ-ली|परिवार
+beautiful|beau·ti·ful|ब्यू-टि-फुल|सुंदर
+important|im·por·tant|इम-पॉर-टेंट|ज़रूरी
+tomorrow|to·mor·row|टु-मॉर-रो|आने वाला कल
+hospital|hos·pi·tal|हॉस-पि-टल|अस्पताल
+umbrella|um·brel·la|अम-ब्रेल-ला|छाता
+remember|re·mem·ber|रि-मेम-बर|याद रखना
+yesterday|yes·ter·day|येस-टर-डे|बीता हुआ कल
+computer|com·pu·ter|कम-प्यू-टर|कंप्यूटर
+elephant|el·e·phant|एल-इ-फंट|हाथी`,
+3:`determination|de·ter·mi·na·tion|डि-टर-मि-ने-शन|पक्का इरादा
+education|ed·u·ca·tion|एज-यू-के-शन|शिक्षा
+information|in·for·ma·tion|इन-फर-मे-शन|जानकारी
+environment|en·vi·ron·ment|इन-वाइ-रन-मेंट|पर्यावरण
+university|u·ni·ver·si·ty|यू-नि-वर-सि-टी|विश्वविद्यालय
+opportunity|op·por·tu·ni·ty|ऑप-र-ट्यू-नि-टी|मौका
+imagination|i·mag·i·na·tion|इ-मैज-इ-ने-शन|कल्पना
+celebration|cel·e·bra·tion|सेल-इ-ब्रे-शन|जश्न
+responsibility|re·spon·si·bil·i·ty|रि-स्पॉन-सि-बिल-इ-टी|ज़िम्मेदारी
+vocabulary|vo·cab·u·lar·y|वो-कैब-यू-ल-री|शब्दावली`};
+const EXS=`water|I drink water every day.|मैं रोज़ पानी पीता हूँ।
+mother|My mother cooks food for us.|मेरी माँ हमारे लिए खाना बनाती है।
+father|My father goes to work early.|मेरे पिता सुबह जल्दी काम पर जाते हैं।
+teacher|The teacher is teaching us.|शिक्षक हमें पढ़ा रहे हैं।
+market|We buy fruits in the market.|हम बाज़ार में फल खरीदते हैं।
+doctor|The doctor gave me medicine.|डॉक्टर ने मुझे दवा दी।
+yellow|The sun looks yellow.|सूरज पीला दिखता है।
+window|Please open the window.|कृपया खिड़की खोलो।
+pencil|I write with a pencil.|मैं पेंसिल से लिखता हूँ।
+happy|I am happy today.|मैं आज खुश हूँ।
+family|My family lives in a village.|मेरा परिवार गाँव में रहता है।
+beautiful|The garden looks beautiful.|बगीचा सुंदर दिखता है।
+important|Sleep is important for health.|सेहत के लिए नींद ज़रूरी है।
+tomorrow|I will study tomorrow.|मैं कल पढ़ाई करूँगा।
+hospital|He is in the hospital.|वह अस्पताल में है।
+umbrella|Take an umbrella, it may rain.|छाता ले जाओ, बारिश हो सकती है।
+remember|Please remember this word.|कृपया यह word याद रखो।
+yesterday|I went to school yesterday.|मैं बीते कल स्कूल गया था।
+computer|He works on a computer.|वह कंप्यूटर पर काम करता है।
+elephant|An elephant is a big animal.|हाथी एक बड़ा जानवर है।
+determination|With determination, you can win.|पक्के इरादे से तुम जीत सकते हो।
+education|Education changes our life.|शिक्षा हमारी ज़िंदगी बदलती है।
+information|I need some information.|मुझे कुछ जानकारी चाहिए।
+environment|We must protect the environment.|हमें पर्यावरण को बचाना चाहिए।
+university|She studies in a university.|वह विश्वविद्यालय में पढ़ती है।
+opportunity|This is a good opportunity.|यह एक अच्छा मौका है।
+imagination|Children have great imagination.|बच्चों की कल्पना बहुत अच्छी होती है।
+celebration|We had a big celebration.|हमने बड़ा जश्न मनाया।
+responsibility|Taking care of parents is our responsibility.|माता-पिता का ध्यान रखना हमारी ज़िम्मेदारी है।
+vocabulary|Read daily to improve your vocabulary.|शब्दावली बढ़ाने के लिए रोज़ पढ़ो।`;
+const EM={};'water:💧,mother:👩,father:👨,teacher:🧑‍🏫,market:🛒,doctor:🩺,yellow:🟡,window:🪟,pencil:✏️,happy:😊,family:👪,beautiful:🌸,important:⭐,tomorrow:🌅,hospital:🏥,umbrella:☂️,remember:🧠,yesterday:🌇,computer:💻,elephant:🐘,determination:💪,education:🎓,information:📰,environment:🌳,university:🏛️,opportunity:🚪,imagination:💭,celebration:🎉,responsibility:🤝,vocabulary:📖,acceleration:🚀,thermodynamics:🌡️,electromagnetic:🧲,magnetism:🧲,gravitation:🍎,equilibrium:⚖️,refraction:🌈,velocity:🏃,kinetic:🏃,friction:🔥,wavelength:🌊,frequency:📻,resonance:🎵,radioactivity:☢️,radioisotope:☢️,photosynthesis:🌿,crystallization:💎,distillation:⚗️,fermentation:🍞,catalyst:⚡,hydrocarbon:⛽,corrosive:⚠️,colloidal:🥛,mitochondria:🔋,chloroplast:🍃,chromosome:🧬,deoxyribonucleic:🧬,respiration:🫁,circulation:❤️,metamorphosis:🦋,reproduction:👶,pathogen:🦠,microorganism:🦠,antibody:🛡️,immunity:🛡️,inoculation:💉,hemoglobin:🩸,evolution:🐒,ecosystem:🌍,biodiversity:🌏,vertebrate:🦴,herbivorous:🐄,quarantine:😷,gratitude:🙏,hospitality:🏨,compassion:🤲,solitude:🧘,melancholy:😔,catastrophe:🌪️,turbulence:🌪️,hindrance:🚧,gigantic:🏔️,magnificent:🏰,bewildered:😵,astonishment:😲,suspicion:🕵️,anonymous:🎭,ambiguity:❓'.split(',').forEach(p=>{const k=p.indexOf(':');EM[p.slice(0,k)]=p.slice(k+1)});
+const LVN=['','आसान','बीच का','भारी'],LVT=LVN;
+D[3]+=`
+comfortable|com·for·ta·ble|कम-फर-ट-बल|आरामदायक
+pronunciation|pro·nun·ci·a·tion|प्र-नन-सि-ए-शन|उच्चारण, यानी बोलने का सही तरीका
+decision|de·ci·sion|डि-सि-ज़न|फैसला
+communication|com·mu·ni·ca·tion|क-म्यू-नि-के-शन|बातचीत, अपनी बात पहुँचाना
+experience|ex·pe·ri·ence|इक्स-पि-रि-अन्स|तजुर्बा`;
+const EXS2=`comfortable|This chair is very comfortable.|यह कुर्सी बहुत आरामदायक है।
+pronunciation|Good pronunciation makes you clear.|सही उच्चारण से तुम्हारी बात साफ़ समझ आती है।
+decision|It was a difficult decision.|यह एक मुश्किल फैसला था।
+communication|Good communication solves problems.|अच्छी बातचीत से परेशानियाँ हल होती हैं।
+experience|Experience is the best teacher.|तजुर्बा सबसे अच्छा शिक्षक है।`;
+Object.assign(EM,{comfortable:'🛋️',pronunciation:'🗣️',decision:'🤔',communication:'💬',experience:'🏅'});
+const VB={};
+`drink|drank|drunk|पीना|I drink water daily.|मैं रोज़ पानी पीता हूँ।|He drank tea yesterday.|उसने कल चाय पी।|We will drink juice tomorrow.|हम कल जूस पिएँगे।
+teach|taught|taught|पढ़ाना|She teaches English.|वह अंग्रेज़ी पढ़ाती है।|He taught us last year.|उसने पिछले साल हमें पढ़ाया।|I will teach you tomorrow.|मैं कल तुम्हें पढ़ाऊँगा।
+write|wrote|written|लिखना|I write a letter every week.|मैं हर हफ़्ते चिट्ठी लिखता हूँ।|She wrote an essay yesterday.|उसने कल निबंध लिखा।|I will write to you soon.|मैं जल्दी तुम्हें लिखूँगा।
+open|opened|opened|खोलना|He opens the window.|वह खिड़की खोलता है।|I opened the door.|मैंने दरवाज़ा खोला।|She will open the shop.|वह दुकान खोलेगी।
+determine|determined|determined|पक्का करना|Hard work determines success.|मेहनत से सफलता तय होती है।|He determined to win.|उसने जीतने का पक्का इरादा किया।|We will determine the answer.|हम जवाब तय करेंगे।
+imagine|imagined|imagined|कल्पना करना|I imagine a big house.|मैं एक बड़े घर की कल्पना करता हूँ।|She imagined a story.|उसने एक कहानी की कल्पना की।|You will imagine it too.|तुम भी इसकी कल्पना करोगे।
+celebrate|celebrated|celebrated|जश्न मनाना|We celebrate Diwali.|हम दिवाली मनाते हैं।|They celebrated his birthday.|उन्होंने उसका जन्मदिन मनाया।|We will celebrate tomorrow.|हम कल जश्न मनाएँगे।
+communicate|communicated|communicated|बातचीत करना|We communicate by phone.|हम फोन से बात करते हैं।|She communicated her idea.|उसने अपना विचार बताया।|I will communicate with him.|मैं उससे बात करूँगा।
+decide|decided|decided|फैसला करना|I decide quickly.|मैं जल्दी फैसला करता हूँ।|She decided to study.|उसने पढ़ने का फैसला किया।|We will decide tomorrow.|हम कल फैसला करेंगे।
+pronounce|pronounced|pronounced|उच्चारण करना|I pronounce words slowly.|मैं words धीरे बोलता हूँ।|He pronounced it correctly.|उसने इसे सही बोला।|I will pronounce it again.|मैं इसे फिर बोलूँगा।
+experience|experienced|experienced|तजुर्बा होना|I experience new things.|मुझे नई चीज़ों का तजुर्बा होता है।|She experienced a big change.|उसे बड़े बदलाव का अनुभव हुआ।|You will experience it soon.|तुम्हें जल्द इसका अनुभव होगा।
+protect|protected|protected|बचाना|We protect trees.|हम पेड़ों को बचाते हैं।|He protected the plants.|उसने पौधों को बचाया।|They will protect nature.|वे प्रकृति को बचाएँगे।
+learn|learned|learned|सीखना|I learn new words.|मैं नए words सीखता हूँ।|She learned English.|उसने अंग्रेज़ी सीखी।|He will learn more.|वह और सीखेगा।
+remember|remembered|remembered|याद रखना|I remember this word.|मुझे यह word याद है।|She remembered my name.|उसे मेरा नाम याद रहा।|I will remember it.|मैं इसे याद रखूँगा।`.split('\n').forEach(l=>{const a=l.split('|');VB[a[0]]={f:[a[0],a[1],a[2]],hi:a[3],t:[[a[4],a[5]],[a[6],a[7]],[a[8],a[9]]]}});
+const REL={};'water:drink,teacher:teach,pencil:write,window:open,determination:determine,imagination:imagine,celebration:celebrate,communication:communicate,decision:decide,pronunciation:pronounce,experience:experience,environment:protect,vocabulary:learn,education:learn'.split(',').forEach(p=>{const k=p.split(':');REL[k[0]]=k[1]});
+const ADJ=['yellow','happy','beautiful','important','comfortable'];
+const IRR={};'go:went:gone,come:came:come,see:saw:seen,eat:ate:eaten,take:took:taken,give:gave:given,make:made:made,know:knew:known,think:thought:thought,get:got:got,run:ran:run,speak:spoke:spoken,read:read:read,sit:sat:sat,stand:stood:stood,buy:bought:bought,bring:brought:brought,begin:began:begun,tell:told:told,say:said:said,find:found:found,keep:kept:kept,leave:left:left,meet:met:met,pay:paid:paid,sell:sold:sold,sleep:slept:slept,swim:swam:swum,win:won:won,sing:sang:sung,fly:flew:flown,do:did:done,have:had:had'.split(',').forEach(p=>{const a=p.split(':');IRR[a[0]]=[a[1],a[2]]});
+function reg(v){return /e$/.test(v)?v+'d':/[^aeiou]y$/.test(v)?v.slice(0,-1)+'ied':/^[^aeiou]*[aeiou][^aeiouwxy]$/.test(v)?v+v.slice(-1)+'ed':v+'ed'}
+function gram(x){
+  const w=x.w,m=x.m,v=VB[w]?w:REL[w];
+  if(v&&VB[v]){const b=VB[v];return{ty:v===w?'क्रिया (Verb) · '+b.hi:'संज्ञा (Noun) · इससे जुड़ा verb: <b>'+v+'</b> = '+b.hi,f:b.f,t:b.t,tip:'V1 अभी/रोज़ की बात, V2 बीते हुए कल की, V3 have/has/had के साथ आता है।'}}
+  if(!m&&/ly$/.test(w))return{ty:'क्रिया-विशेषण (Adverb) · अंदाज़ा',f:['work','worked','worked'],t:[['He works '+w+'.',''],['He worked '+w+'.',''],['He will work '+w+'.','']],tip:'Adverb बताता है कि काम कैसे हुआ। यह verb के साथ आता है।'};
+  if(ADJ.includes(w)||(!m&&!/^(table|cable|fable|stable|vegetable|hospital|animal|capital|metal|signal|festival|journal|music|panic|magic|topic)$/.test(w)&&/(ful|able|ible|ous|ive|al|ic|ish|less)$/.test(w)))return{ty:'विशेषण (Adjective)'+(m?'':' · अंदाज़ा'),f:['am / is / are','was / were','been'],t:[['It is '+w+'.',m?'यह '+m+' है।':''],['It was '+w+'.',m?'यह '+m+' था।':''],['It will be '+w+'.',m?'यह '+m+' होगा।':'']],tip:'Adjective के साथ am/is/are (अभी), was/were (पहले), will be (आगे) लगता है।'};
+  if(!m&&(IRR[w]||/(ize|ise|ify|ate)$/.test(w))){const f=IRR[w]||[reg(w),reg(w)];return{ty:'क्रिया (Verb) · अंदाज़ा',f:[w,f[0],f[1]],t:[['I '+w+' every day.',''],['I '+f[0]+' yesterday.',''],['I will '+w+' tomorrow.','']],tip:'हिंदी अनुवाद सिर्फ पहले से रखे words में मिलता है।'}}
+  return{ty:'संज्ञा (Noun)'+(m?'':' · अंदाज़ा'),f:['see','saw','seen'],t:[['I see the '+w+'.',m?'मैं '+m+' देखता हूँ।':''],['I saw the '+w+'.',m?'मैंने '+m+' देखा।':''],['I will see the '+w+'.',m?'मैं '+m+' देखूँगा।':'']],tip:'Noun किसी चीज़ का नाम है। ये अभ्यास के लिए बने वाक्य हैं।'};
+}
+const WORDS=[];
+for(const k in D)D[k].split('\n').forEach(l=>{const[w,s,h,m]=l.split('|');WORDS.push({w,s:s.split('·'),h:h.split('-'),m,lv:+k})});
+(EXS+'\n'+EXS2).split('\n').forEach(l=>{const[w,a,b]=l.split('|'),x=WORDS.find(z=>z.w===w);if(x){x.sm=a;x.sh=b}});
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+
+/* ---- saved state ---- */
+const KEY='wt2';
+let S={xp:0,streak:0,last:'',hearts:5,hAt:0,diary:[],slow:false,theme:''};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
+const store=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const day=d=>{d=d||new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+function regen(){
+  if(S.hearts>=5)return;
+  if(!S.hAt)S.hAt=Date.now();
+  const n=Math.floor((Date.now()-S.hAt)/3e5);
+  if(n>0){S.hearts=Math.min(5,S.hearts+n);S.hAt=S.hearts>=5?0:S.hAt+n*3e5;store()}
+}
+function hud(){
+  regen();const L=Math.floor(S.xp/100)+1;
+  $('#stk').textContent='🔥 '+S.streak;$('#sxp').textContent='⭐ '+S.xp;$('#sht').textContent='❤️ '+S.hearts;
+  $('#lvn').textContent='Lv '+L;$('#lvb').style.width=(S.xp%100)+'%';
+}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2200)}
+let AC;
+function beep(f){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();f.forEach((x,i)=>{const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*.12;o.frequency.value=x;g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.12);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.13)})}catch(e){}}
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const c=['#22c55e','#10b981','#86efac','#ffffff','#94a3b8'];
+  for(let i=0;i<40;i++){const e=document.createElement('i');e.className='cf';e.style.cssText='left:'+Math.random()*100+'%;background:'+c[i%5]+';animation-delay:'+Math.random()*.4+'s;animation-duration:'+(1.2+Math.random())+'s';$('#app').appendChild(e);setTimeout(()=>e.remove(),2800)}
+}
+function addXP(n){
+  const before=Math.floor(S.xp/100);S.xp+=n;
+  const t=day();
+  if(S.last!==t){S.streak=S.last===day(new Date(Date.now()-864e5))?S.streak+1:1;S.last=t}
+  store();hud();
+  const p=document.createElement('div');p.className='xpop';p.textContent='+'+n+' XP';$('#app').appendChild(p);setTimeout(()=>p.remove(),1500);
+  if(Math.floor(S.xp/100)>before){setTimeout(()=>{toast('🎉 Level Up! Level '+(Math.floor(S.xp/100)+1));confetti();beep([523,659,784])},600)}
+}
+function loseHeart(){if(S.hearts>=5)S.hAt=Date.now();S.hearts=Math.max(0,S.hearts-1);store();hud();toast('💔 एक दिल गया')}
+
+/* ---- syllable engine ---- */
+function cut(c,last){
+  if(last)return 0;
+  const u=c.match(/qu|ch|sh|th|ph|wh|ck|ng|gh|./g);let p;
+  if(u.length===1)return /^(ck|ng|x)$/.test(u[0])?c.length:0;
+  p=1;
+  if(u.length>=3&&/^(str|spr|spl|scr|shr|thr|chr)$/.test(u.slice(-3).join('')))p=u.length-3;
+  else if(u.length>=3&&/^(bl|br|cl|cr|dr|fl|fr|gl|gr|pl|pr|sc|sk|sl|sm|sn|sp|st|sw|tr|tw)$/.test(u.slice(-2).join('')))p=u.length-2;
+  return u.slice(0,p).join('').length;
+}
+function syl(word){
+  const w=word.toLowerCase().replace(/[^a-z]/g,'');
+  if(!w)return[];
+  const V=(c,i)=>'aeiou'.includes(c)?!(c==='u'&&w[i-1]==='q'):(c==='y'&&i>0);
+  const R=[];let i=0;
+  while(i<w.length){const v=V(w[i],i);let j=i;while(j<w.length&&V(w[j],j)===v)j++;R.push({v,t:w.slice(i,j)});i=j}
+  let nuc=R.filter(r=>r.v).length,n=R.length;
+  if(nuc>1&&n>1&&R[n-1].v&&R[n-1].t==='e'){const P=R[n-2].t;if(!(/[^aeiou]l$/.test(P)&&P.length>1)){R[n-2].t+='e';R.pop()}}
+  n=R.length;nuc=R.filter(r=>r.v).length;
+  if(nuc>1&&n>2&&R[n-2].v&&R[n-2].t==='e'&&/^[ds]$/.test(R[n-1].t)&&!R[n-3].v){
+    const p=R[n-3].t,keep=R[n-1].t==='d'?/[td]$/.test(p):/([sxzc]|ch|sh)$/.test(p);
+    if(!keep){R[n-3].t+=R[n-2].t+R[n-1].t;R.splice(n-2,2)}
+  }
+  const idx=[];R.forEach((r,k)=>{if(r.v)idx.push(k)});
+  if(idx.length<2)return[w];
+  const out=[];let onset=R.slice(0,idx[0]).map(r=>r.t).join('');
+  for(let a=0;a<idx.length;a++){
+    const k=idx[a];let s=onset+R[k].t;onset='';
+    if(a<idx.length-1){const c=R[k+1].t,lastLe=idx[a+1]===R.length-1&&R[idx[a+1]].t==='e'&&/l$/.test(c)&&c.length>1,p=cut(c,lastLe);s+=c.slice(0,p);onset=c.slice(p)}
+    else s+=R.slice(k+1).map(r=>r.t).join('');
+    out.push(s);
+  }
+  return out;
+}
+function align(t,h){
+  const n=t.length,m=h.length,d=[];
+  for(let i=0;i<=n;i++)d[i]=[i];
+  for(let j=1;j<=m;j++)d[0][j]=j;
+  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(t[i-1]===h[j-1]?0:1));
+  const ok=Array(n).fill(false);let i=n,j=m;
+  while(i>0&&j>0){
+    if(t[i-1]===h[j-1]&&d[i][j]===d[i-1][j-1]){ok[i-1]=true;i--;j--}
+    else if(d[i][j]===d[i-1][j-1]+1){i--;j--}
+    else if(d[i][j]===d[i-1][j]+1){i--}
+    else j--;
+  }
+  return ok;
+}
+
+/* ---- audio ---- */
+let EN=null,HI=null,pid=0,cur=null;
+function pickVoice(){try{const v=speechSynthesis.getVoices(),en=v.filter(x=>/^en/i.test(x.lang));EN=en.find(x=>/en[-_]IN/i.test(x.lang)&&/google|natural/i.test(x.name))||en.find(x=>/google|natural/i.test(x.name))||en.find(x=>/en[-_]US/i.test(x.lang))||en[0]||null;HI=v.find(x=>/^hi/i.test(x.lang))||null}catch(e){}}
+try{speechSynthesis.onvoiceschanged=pickVoice;pickVoice()}catch(e){}
+function spk(t,r,hi){return new Promise(res=>{try{const u=new SpeechSynthesisUtterance(t),v=hi?HI:EN;u.lang=hi?'hi-IN':(EN?EN.lang:'en-US');if(v)u.voice=v;u.rate=r;u.onend=u.onerror=()=>res();speechSynthesis.speak(u);setTimeout(res,7000)}catch(e){res()}})}
+const stopS=()=>{pid++;try{speechSynthesis.cancel()}catch(e){}};
+function say(t){stopS();return spk(t,.95)}
+function piece(x,k,r){return x.h&&HI?spk(x.h[k],r||.8,true):spk(x.s[k],r||.8)}
+function tick(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;o.type='triangle';o.frequency.setValueAtTime(900,t);o.frequency.exponentialRampToValueAtTime(520,t+.05);g.gain.setValueAtTime(.14,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.07)}catch(e){}}
+function ctx(){AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC}
+function chime(){try{ctx();[784,988,1319].forEach((f,k)=>{const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+k*.09;o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.45);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.5)})}catch(e){}}
+function buzz(){try{ctx();const t=AC.currentTime;[0,.18].forEach(d=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(150,t+d);o.frequency.linearRampToValueAtTime(105,t+d+.15);g.gain.setValueAtTime(.18,t+d);g.gain.exponentialRampToValueAtTime(.001,t+d+.16);o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.17)});if(navigator.vibrate)navigator.vibrate([90,50,90])}catch(e){}}
+function bounce(t){if(!t)return;t.classList.remove('pop');void t.offsetWidth;t.classList.add('pop')}
+function chipSay(k){tick();stopS();bounce($$('.card .chips .chip')[k]);piece(cur,k)}
+async function slowPlay(){
+  stopS();const id=pid,T=$$('#sp .chips .chip, .card .chips .chip');
+  for(let k=0;k<cur.s.length;k++){if(id!==pid)return;if(T[k])T[k].classList.add('on');await piece(cur,k,.5);if(T[k])T[k].classList.remove('on')}
+  if(id!==pid)return;
+  T.forEach(t=>t.classList.add('on'));await spk(cur.w,.5);T.forEach(t=>t.classList.remove('on'));
+}
+/* ---- ui helpers ---- */
+const LOGO='<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#58cc02"/><rect x="8" y="16" width="14" height="16" rx="4.5" fill="#fff"/><rect x="26" y="16" width="14" height="16" rx="4.5" fill="#ffc800"/><path d="M22.5 24h3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>';
+const IC={sp:'<path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>',bm:'<path d="M6 3.5h12v17l-6-4.2-6 4.2z"/>',gr:'<path d="M4 19L9 5l5 14M6 14h6M17 10h3M18.5 10v9"/>',lf:'<path d="M15 5l-7 7 7 7"/>',rt:'<path d="M9 5l7 7-7 7"/>',bu:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',sk:'<path d="M5 5l9 7-9 7zM18 5v14"/>',tr:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',se:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',us:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',mc:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',book:'<path d="M5 4h4v16H5zM11 4h4v16h-4zM17.2 5l3 .8-3.6 14.4-3-.8z"/>',learn:'<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/>',build:'<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/><path d="M13 7.5h7M4 16.5h7"/>',quiz:'<path d="M13 3L5 14h6l-1 7 8-11h-6z"/>',diary:'<rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h3"/>'};
+const ico=n=>'<svg viewBox="0 0 24 24">'+IC[n]+'</svg>';
+const IG='https://www.instagram.com/';
+function openSheet(h){$('#sp').innerHTML='<div class="grab"></div>'+h;$('#sheet').classList.add('on')}
+function closeSheet(){$('#sheet').classList.remove('on')}
+const lvOf=x=>x.lv||(x.s.length<=2?1:x.s.length===3?2:3);
+const seg=(a,fn)=>'<div class="seg">'+[1,2,3].map(k=>'<button class="'+(k===a?'on':'')+'" onclick="'+fn+'('+k+')">'+LVN[k]+'</button>').join('')+'</div>';
+const saved=x=>S.diary.some(z=>z.w===x.w);
+/* ---- mic ---- */
+function micState(s,msg){const b=$('#mic');if(b)b.dataset.s=s;const m=$('#mres');if(m&&msg!=null){m.innerHTML=msg;m.className='mres '+s}}
+const micHtml=()=>'<div class="micw"><button id="mic" class="mic" data-s="ready" onclick="mic()" aria-label="बोलो और चेक करो">'+ico('mc')+'<span class="wv"><i></i><i></i><i></i><i></i></span></button><div id="mres" class="mres">माइक दबाकर word बोलो</div></div>';
+function permState(){try{return navigator.permissions.query({name:'microphone'}).then(r=>r.state,()=>'prompt')}catch(e){return Promise.resolve('prompt')}}
+function micSheet(ic,t,p,btn){openSheet('<div class="big">'+ic+'</div><h3>'+t+'</h3><p>'+p+'</p>'+btn+'<button class="sec" onclick="closeSheet()">'+(btn?'अभी नहीं':'ठीक है')+'</button>')}
+function micDenied(){micSheet('🔓','माइक बंद है','Chrome में ऊपर 🔒 दबाओ → <b>Permissions → Microphone → Allow</b>। फिर दोबारा माइक दबाओ।','')}
+async function mic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return micSheet('😕','माइक चेक यहाँ नहीं चलेगा','इस ब्राउज़र में ये सुविधा नहीं है। Android के <b>Chrome</b> में खोलो।','');
+  if(!window.isSecureContext)return micSheet('🔒','https लिंक चाहिए','माइक सिर्फ सुरक्षित (https) लिंक पर चलता है। Vercel लिंक पर चलेगा।','');
+  const st=await permState();
+  if(st==='granted')return startRec();
+  if(st==='denied')return micDenied();
+  micSheet('🎤','माइक चालू करें?','बोलकर उच्चारण चेक करने के लिए माइक की इजाज़त चाहिए।','<button class="cta" onclick="askMic()">✅ इजाज़त दो</button>');
+}
+async function askMic(){
+  closeSheet();
+  try{const st=await navigator.mediaDevices.getUserMedia({audio:true});st.getTracks().forEach(t=>t.stop())}catch(e){return micDenied()}
+  startRec();
+}
+function startRec(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  stopS();$$('.card .chips .chip').forEach(t=>t.classList.remove('good','try','on','pop'));
+  const r=new SR();r.lang='en-US';r.maxAlternatives=5;r.interimResults=false;
+  let done=false,tm;
+  r.onresult=e=>{done=true;clearTimeout(tm);judge([...e.results[0]].map(a=>a.transcript.toLowerCase().replace(/[^a-z]/g,'')))};
+  r.onerror=e=>{if(done)return;done=true;clearTimeout(tm);if(e.error==='not-allowed'||e.error==='service-not-allowed'){micState('ready','');return micDenied()}micState('ready',e.error==='network'?'📶 माइक चेक के लिए इंटरनेट चाहिए।':'🙂 ठीक से सुन नहीं पाया। फिर कोशिश करो।')};
+  r.onend=()=>{clearTimeout(tm);if(!done){done=true;micState('ready','🤔 कुछ सुनाई नहीं दिया। पास आकर साफ़ बोलो।')}};
+  micState('listen','🎧 Listening… अब word बोलो');
+  try{r.start();tm=setTimeout(()=>{try{r.stop()}catch(e){}},8000)}catch(e){micState('ready','🙂 फिर से दबाओ।')}
+}
+function judge(alts){
+  const w=cur.w.toLowerCase().replace(/[^a-z]/g,''),T=$$('.card .chips .chip');
+  if(alts.includes(w)){T.forEach(t=>t.classList.add('good'));micState('ok','✅ Correct! बहुत बढ़िया उच्चारण');beep([660,880,1100]);confetti();addXP(10);return}
+  let best=alts[0]||'',ok=null,sc=-1;
+  alts.forEach(a=>{const r=align(w,a),n=r.filter(Boolean).length;if(n>sc){sc=n;best=a;ok=r}});
+  const lens=cur.s.map(s=>s.replace(/[^a-z]/gi,'').length);
+  if(!ok||!best||lens.reduce((a,b)=>a+b,0)!==w.length){micState('ready','🙂 लगभग! धीरे-धीरे टुकड़ों में बोलकर फिर कोशिश करो।');return}
+  let p0=0;const bad=[];
+  T.forEach((t,k)=>{const g=ok.slice(p0,p0+lens[k]).every(Boolean);p0+=lens[k];t.classList.add(g?'good':'try');if(!g)bad.push(k)});
+  beep([392,440]);
+  micState('ready',bad.length?'💡 बस थोड़ा और! मैंने सुना: <b>'+best+'</b><br><b>'+bad.map(k=>cur.s[k]+(cur.h?' ('+cur.h[k]+')':'')).join(' + ')+'</b> दोबारा बोलो। पहले उस टुकड़े पर टैप करके सुनो।':'🙂 लगभग सही! एक बार और बोलो।');
+}
+/* ---- learn ---- */
+let lv=1,i=0,cx=null,tabn='learn';
+function learn(){
+  const L=WORDS.filter(w=>w.lv===lv),n=Math.min(i,L.length-1),x=cx||L[n],l=lvOf(x);cur=x;
+  $('#main').innerHTML=seg(l,'setLv')
+  +'<section class="card lc"><div class="chd"><button class="ar" onclick="step(-1)" aria-label="पिछला">'+ico('lf')+'</button><div class="em">'+(EM[x.w]||'📘')+'</div><button class="ar" onclick="step(1)" aria-label="अगला">'+ico('rt')+'</button></div>'
+  +'<div class="cnt">'+(cx?(cx.bk?'📚 '+cx.bk+(cx.lst?' · '+(cx.ix+1)+' / '+cx.lst.length:''):'🔍 खोजा हुआ word'):(n+1)+' / '+L.length)+'</div>'
+  +'<div class="wd">'+x.w+'</div><div class="chips">'+x.s.map((s,k)=>'<button class="chip" onclick="chipSay('+k+')" aria-label="'+s+'"><b>'+s+'</b>'+(x.h?'<small>'+x.h[k]+'</small>':'')+'</button>').join('<i>·</i>')+'</div>'
+  +(x.h?'<div class="ph">बोलो: <b>'+x.h.join('')+'</b></div>':'<div class="ph">हर टुकड़े पर टैप करके आवाज़ सुनो</div>')
+  +'<div class="mn">'+(x.m||'&nbsp;')+'</div>'
+  +(x.sm?'<div class="ex"><span>'+x.sm+'</span>'+(x.sh||'')+'</div>':'')
+  +'<div class="ics"><button class="ic" onclick="say(cur.w)" aria-label="सुनो">'+ico('sp')+'</button><button class="ic" onclick="slowPlay()" aria-label="धीमा सुनो"><span class="tt">🐢</span></button><button class="ic'+(saved(x)?' on':'')+'" onclick="saveW(this)" aria-label="डायरी में रखो">'+ico('bm')+'</button><button class="ic" onclick="gramSheet()" aria-label="ग्रामर">'+ico('gr')+'</button></div></section>'
+  +micHtml();
+}
+function setLv(k){cx=null;lv=k;i=0;learn()}
+function step(d){stopS();if(cx&&cx.lst){const n=cx.lst.length,k=(cx.ix+d+n)%n;cx=Object.assign({},cx.lst[k],{lst:cx.lst,ix:k,bk:cx.bk});learn();return}const n=WORDS.filter(w=>w.lv===lv).length;if(cx)cx=null;else i=(i+d+n)%n;learn()}
+function saveW(b){
+  const x=cur;if(!x)return;const k=S.diary.findIndex(z=>z.w===x.w);
+  if(k>=0){S.diary.splice(k,1);if(b)b.classList.remove('on');toast('डायरी से हटाया')}
+  else{S.diary.push({w:x.w,s:x.s,h:x.h||null,m:x.m||''});if(b)b.classList.add('on');toast('Word saved to Diary! ✅')}
+  store();
+}
+function gramSheet(){
+  const g=gram(cur),n=['Present · वर्तमान','Past · भूत','Future · भविष्य'];
+  openSheet('<h3>📘 ग्रामर सीखो</h3><p><b>'+cur.w+'</b> · '+g.ty+'</p><div class="vf">'+['V1','V2','V3'].map((k,j)=>'<span>'+k+'<b>'+g.f[j]+'</b></span>').join('')+'</div>'+g.t.map((t,j)=>'<div class="tn"><small>'+n[j]+'</small>'+t[0]+(t[1]?'<small>'+t[1]+'</small>':'')+'</div>').join('')+'<div class="note">'+g.tip+'</div><button class="sec" onclick="closeSheet()">बंद करो</button>');
+}
+function openSearch(){
+  openSheet('<h3>🔍 कोई भी word खोजो</h3><p>टुकड़े, लेवल और ग्रामर अपने आप मिलेंगे</p><div class="sq"><input id="q" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="जैसे: fantastic" onkeydown="if(event.key===\'Enter\')goSearch()"></div><button class="cta" onclick="goSearch()">तोड़ो</button>');
+  setTimeout(()=>{const q=$('#q');if(q)q.focus()},250);
+}
+function goSearch(){
+  const w=($('#q').value||'').trim().toLowerCase().replace(/[^a-z]/g,'');if(!w)return;
+  const x=WORDS.find(z=>z.w===w);closeSheet();
+  if(x){lv=x.lv;i=WORDS.filter(z=>z.lv===lv).indexOf(x);cx=null}else cx={w,s:syl(w)};
+  tab('learn');
+}
+/* ---- builder hub ---- */
+let bm='word',BW=null,SB=null;
+const SENT=WORDS.filter(x=>x.sm&&x.sh);
+function build(){
+  $('#main').innerHTML='<div class="seg"><button class="'+(bm==='word'?'on':'')+'" onclick="setBm(\'word\')">शब्द जोड़ो</button><button class="'+(bm==='sent'?'on':'')+'" onclick="setBm(\'sent\')">वाक्य जोड़ो</button></div>'+seg(lv,'setLvB')+'<section class="card bcard" id="bc"></section>';
+  bm==='word'?wnew():snew();
+}
+function setBm(m){bm=m;stopS();build()}
+function setLvB(k){lv=k;BW=null;SB=null;build()}
+const poolHtml=(pool,fn)=>'<div class="pool">'+pool.map((p,j)=>'<button class="chip" onclick="'+fn+'('+j+')"><b>'+p.s+'</b></button>').join('')+'</div>';
+const bacts=(fn)=>'<div class="acts" id="ba"><button class="ic" onclick="'+fn+'" aria-label="हिंट">'+ico('bu')+'</button><button class="ic" onclick="'+(bm==='word'?'wnew()':'snew()')+'" aria-label="छोड़ो">'+ico('sk')+'</button></div>';
+function wnew(){
+  const L=WORDS.filter(w=>w.lv===lv);let x;
+  do{x=L[Math.floor(Math.random()*L.length)]}while(L.length>1&&BW&&BW.x===x);
+  BW={x,got:[],pool:shuf(x.s.map((s,k)=>({s,k,u:false}))),done:false};
+  $('#bc').innerHTML='<div class="em">'+(EM[x.w]||'📘')+'</div><div class="mn">'+x.m+'</div><div class="cnt">🧩 टुकड़े सही क्रम में जोड़ो</div>'
+  +'<div class="slots" id="sl">'+x.s.map(()=>'<div class="slot"></div>').join('')+'</div>'+poolHtml(BW.pool,'bpick')+bacts('bhint()');
+}
+function bpick(j){
+  const b=BW;if(!b||b.done)return;const p=b.pool[j];if(p.u)return;const btn=$$('.pool .chip')[j];
+  stopS();piece(b.x,p.k);
+  if(p.s===b.x.s[b.got.length]){
+    p.u=true;btn.classList.add('used');const sl=$$('.slot')[b.got.length];sl.textContent=p.s;sl.classList.add('f');bounce(sl);b.got.push(p);tick();
+    if(b.got.length===b.x.s.length)wfinish();
+  }else{beep([260]);btn.classList.remove('shake');void btn.offsetWidth;btn.classList.add('shake')}
+}
+function wfinish(){
+  const b=BW;b.done=true;const sl=$('#sl');sl.classList.add('m');
+  setTimeout(()=>{
+    sl.classList.remove('m');sl.innerHTML='<div class="pill">'+b.x.w+'</div>';
+    say(b.x.w);beep([523,659,784,1047]);confetti();addXP(10);
+    $('.pool').innerHTML='<div class="ph">बोलो: <b>'+b.x.h.join('')+'</b></div>';
+    $('#ba').innerHTML='<button class="cta" onclick="wnew()">अगला →</button>';
+  },450);
+}
+function bhint(){const b=BW;if(!b||b.done)return;const j=b.pool.findIndex(p=>!p.u&&p.s===b.x.s[b.got.length]),t=$$('.pool .chip')[j];if(t)t.classList.add('hint')}
+function snew(){
+  const SL=SENT.filter(z=>z.lv===lv);let x;do{x=SL[Math.floor(Math.random()*SL.length)]}while(SL.length>1&&SB&&SB.x===x);
+  const t=x.sm.split(' ');SB={x,t,got:0,pool:shuf(t.map((s,k)=>({s,k,u:false}))),done:false};
+  $('#bc').innerHTML='<div class="em">'+(EM[x.w]||'📘')+'</div><div class="mn sm">'+x.sh+'</div><div class="cnt">🧩 English वाक्य बनाओ</div>'
+  +'<div class="slots" id="sl">'+t.map(()=>'<div class="slot w"></div>').join('')+'</div>'+poolHtml(SB.pool,'spick')+bacts('shint()');
+}
+function spick(j){
+  const b=SB;if(!b||b.done)return;const p=b.pool[j];if(p.u)return;const btn=$$('.pool .chip')[j];
+  if(p.s===b.t[b.got]){
+    p.u=true;btn.classList.add('used');const sl=$$('.slot')[b.got];sl.textContent=p.s;sl.classList.add('f');bounce(sl);b.got++;tick();
+    if(b.got===b.t.length){
+      b.done=true;const el=$('#sl');el.classList.add('m');
+      setTimeout(()=>{el.classList.remove('m');el.innerHTML='<div class="pill s">'+b.x.sm+'</div>';say(b.x.sm);beep([523,659,784,1047]);confetti();addXP(10);$('.pool').innerHTML='';$('#ba').innerHTML='<button class="cta" onclick="snew()">अगला →</button>'},450);
+    }
+  }else{beep([260]);btn.classList.remove('shake');void btn.offsetWidth;btn.classList.add('shake')}
+}
+function shint(){const b=SB;if(!b||b.done)return;const j=b.pool.findIndex(p=>!p.u&&p.s===b.t[b.got]),t=$$('.pool .chip')[j];if(t)t.classList.add('hint')}
+/* ---- quiz ---- */
+let Q=null,qn=0,qok=0;
+function setLvQ(k){cx=null;lv=k;qn=0;qok=0;Q=null;quiz()}
+function quiz(){
+  hud();
+  if(S.hearts<=0){const m=Math.max(1,Math.ceil((3e5-(Date.now()-S.hAt))/6e4));$('#main').innerHTML='<section class="card lc" style="justify-content:center;gap:.8rem"><div class="em">💔</div><div class="wd" style="font-size:1.4rem">दिल ख़त्म!</div><div class="mn sm">अगला ❤️ करीब '+m+' मिनट में मिलेगा।</div><button class="cta" onclick="tab(\'learn\')">📖 सीखो में practice करो</button></section>';return}
+  if(qn>=10){$('#main').innerHTML=seg(lv,'setLvQ')+'<section class="card lc" style="justify-content:center;gap:.8rem"><div class="em">🏆</div><div class="wd" style="font-size:1.5rem">Lesson Complete!</div><div class="mn sm">'+qok+' / 10 सही'+(qok>=7?' · +20 XP bonus':'')+'</div><button class="cta" onclick="qn=0;qok=0;quiz()">फिर से खेलो</button></section>';return}
+  const L=WORDS.filter(w=>w.lv===lv),q=L[Math.floor(Math.random()*L.length)],o=shuf([q,...shuf(L.filter(z=>z!==q)).slice(0,3)]);
+  Q={q,o,done:false};
+  $('#main').innerHTML=seg(lv,'setLvQ')+'<div class="qp"><div class="bar"><i style="width:'+qn*10+'%"></i></div><small>'+qn+' / 10</small></div><section class="card lc"><div class="em">'+(EM[q.w]||'📘')+'</div><div class="mn">'+q.m+'</div><div class="cnt">इसका English word कौन सा है?</div><div class="opts">'+o.map((x,k)=>'<button class="opt" onclick="ans('+k+')"><span class="lt">'+'ABCD'[k]+'</span>'+x.w+'</button>').join('')+'</div><div id="qf" style="width:100%"></div></section>';
+}
+function ans(k){
+  if(!Q||Q.done)return;Q.done=true;qn++;
+  const ok=Q.o[k]===Q.q,B=$$('.opt');
+  B[Q.o.indexOf(Q.q)].classList.add('right');if(!ok)B[k].classList.add('wrong');
+  if(ok){qok++;chime();addXP(10);setTimeout(()=>say(Q.q.w),350)}else{buzz();loseHeart()}
+  if(qn>=10&&qok>=7)setTimeout(()=>{addXP(20);confetti()},500);
+  $('#qf').innerHTML='<div class="fb '+(ok?'ok':'')+'">'+(ok?'✅ Correct!':'सही जवाब: <b>'+Q.q.w+'</b>')+'</div><button class="cta" style="width:100%;margin-top:.4rem" onclick="quiz()">'+(qn>=10?'Finish':'आगे चलो →')+'</button>';
+}
+/* ---- book: textbook words, stories, my own passage ---- */
+const mkV=t=>t.split('\n').map(l=>{const a=l.split('|');return{w:a[0],s:a[1].split('·'),h:a[2].split('-'),m:a[3]}});
+const BK=[
+{t:'The Pace for Living',a:'R.C. Hutchinson',g:'लेखक बताता है कि आज की ज़िंदगी में हर चीज़ बहुत तेज़ हो गई है। एक नाटक का बूढ़ा व्यापारी तेज़ रफ़्तार से घबराता है, और लेखक खुद को धीमा सोचने वाला बताता है। वो कहता है कि मशीनों की दौड़ में दिमाग़ से भी वैसी ही रफ़्तार माँगी जाती है, जो हर किसी के लिए आसान नहीं।',v:mkV(`dicky|dick·y|डिक-की|कमज़ोर (बोलचाल में)
+fanciful|fan·ci·ful|फैन-सि-फुल|बहुत कल्पना वाला
+despair|de·spair|डि-स्पेयर|पूरी निराशा
+enchanting|en·chant·ing|इन-चान-टिंग|जादू-सा मोहने वाला
+illustration|il·lus·tra·tion|इल-अस-ट्रे-शन|उदाहरण
+adore|a·dore|अ-डोर|बहुत प्यार और सम्मान करना
+superficial|su·per·fi·cial|सू-पर-फि-शल|ऊपरी, सतही
+prejudice|prej·u·dice|प्रेज-अ-डिस|पहले से बनाई हुई राय, पूर्वाग्रह
+devastating|dev·as·tat·ing|डेव-अस-टे-टिंग|तबाह कर देने वाला
+blonde|blonde|ब्लॉन्ड|सुनहरे बालों वाली औरत
+brunette|bru·nette|ब्रू-नेट|भूरे या काले बालों वाली औरत
+exceptional|ex·cep·tion·al|इक्स-सेप-शन-ल|असाधारण
+contemporary|con·tem·po·rar·y|कन-टेम-पो-रे-री|आज के समय का
+contradiction|con·tra·dic·tion|कॉन-ट्र-डिक-शन|विरोधाभास, उल्टी बात
+irrelevant|ir·rel·e·vant|इ-रेल-इ-वंट|बेमतलब, जिसका बात से संबंध न हो`)},
+{t:'Me and the Ecology Bit',a:'Joan Lexau',g:'जिम पेपर बाँटने का काम करता है और सबको पर्यावरण बचाने की सलाह देता है। पर जब वो अलग-अलग पड़ोसियों से कहता है, तो हर कोई उसकी अपनी गलतियाँ गिना देता है। आख़िर में वो मानता है कि पर्यावरण की बात सब करते हैं, पर करता कोई नहीं।',v:mkV(`ecology|e·col·o·gy|इ-कॉल-ओ-जी|पर्यावरण और जीवों के रिश्ते का विज्ञान
+preservation|pres·er·va·tion|प्रेज़-र-वे-शन|संरक्षण, बचाकर रखना
+participate|par·tic·i·pate|पार-टिस-इ-पेट|हिस्सा लेना
+aluminium|al·u·min·i·um|अल-यू-मिन-इ-अम|एक हल्की चाँदी जैसी धातु
+pretend|pre·tend|प्री-टेंड|दिखावा करना, बहाना बनाना
+compost|com·post|कॉम-पोस्ट|कचरे से बनी खाद
+garbage|gar·bage|गार-बिज|कचरा
+pollution|pol·lu·tion|प-लू-शन|प्रदूषण
+wrapper|wrap·per|रैप-पर|लपेटने वाला कागज़, रैपर
+leash|leash|लीश|कुत्ते का पट्टा
+innings|in·nings|इन-निंग्ज़|क्रिकेट में बैटिंग या बॉलिंग की बारी
+snowmobile|snow·mo·bile|स्नो-मो-बील|बर्फ़ पर चलने वाली गाड़ी`)}];
+const XV=mkV(`grateful|grate·ful|ग्रेट-फुल|आभारी
+financial|fi·nan·cial|फाइ-नैन-शल|आर्थिक, पैसों का
+scholarship|schol·ar·ship|स्कॉल-र-शिप|छात्रवृत्ति
+confidence|con·fi·dence|कॉन-फि-डेंस|आत्मविश्वास
+conversation|con·ver·sa·tion|कॉन-वर-से-शन|बातचीत
+talented|tal·ent·ed|टैल-न-टिड|प्रतिभाशाली
+extremely|ex·treme·ly|इक्स-ट्रीम-ली|बहुत ज़्यादा
+serious|se·ri·ous|सिअ-रि-अस|गंभीर
+wonderful|won·der·ful|वन-डर-फुल|शानदार`);
+const BKW={};[...BK.flatMap(b=>b.v),...XV].forEach(x=>{BKW[x.w]=x});
+const STORIES=[
+{t:'The Mango Tree',l:1,e:'Ravi has a small mango tree in his garden. Every morning he gives it water. One day a strong wind comes and the tree falls down. Ravi is sad, but his friends help him. They plant the tree again, and soon it grows tall.',g:'रवि के बगीचे में आम का छोटा पेड़ है। तेज़ हवा से पेड़ गिर जाता है, पर दोस्त मिलकर उसे दोबारा लगा देते हैं।'},
+{t:'The Lost Wallet',l:2,e:'On the way to school, Meena found a wallet on the road. It was full of money, but she did not keep it. She walked to the police station and gave it to an officer. The owner came to thank her, and he was extremely grateful.',g:'मीना को सड़क पर भरा हुआ बटुआ मिलता है। वह उसे पुलिस को दे देती है, और मालिक उसका शुक्रिया अदा करता है।'},
+{t:'A Difficult Decision',l:3,e:'Aman was a talented student, but his family faced a serious financial problem. He had to make a difficult decision: continue his education or start working. After a long conversation with his teacher, he found a wonderful opportunity. A scholarship gave him confidence, and his determination finally changed his future.',g:'अमन के परिवार पर पैसों की मुश्किल आती है और उसे पढ़ाई या काम में से एक चुनना है। शिक्षक से बात करने पर उसे छात्रवृत्ति का मौका मिलता है और उसका पक्का इरादा उसका भविष्य बदल देता है।'}];
+const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function lookup(w){return BKW[w]||WORDS.find(z=>z.w===w)||{w,s:syl(w)}}
+function rdHtml(t){return t.replace(/([A-Za-z][A-Za-z'’-]*)|([^A-Za-z]+)/g,(m,a,b)=>{if(!a)return esc(b);const w=a.toLowerCase().replace(/[^a-z]/g,''),k=lookup(w);return '<span class="w'+(k.m?' k':syl(w).length>=4?' h':'')+'" data-w="'+w+'">'+a+'</span>'}).replace(/\n/g,'<br>')}
+function rdTap(ev){const e=ev.target&&ev.target.closest?ev.target.closest('.w'):null;if(e)wordSheet(e.dataset.w)}
+function wordSheet(w){
+  const x=lookup(w);cur=x;
+  openSheet('<h3 style="font-size:1.6rem">'+x.w+'</h3><div class="chips">'+x.s.map((p,k)=>'<button class="chip" onclick="sheetChip('+k+')"><b>'+p+'</b>'+(x.h?'<small>'+x.h[k]+'</small>':'')+'</button>').join('<i>·</i>')+'</div>'+(x.h?'<p style="margin-top:.5rem">बोलो: <b style="color:#fff">'+x.h.join('')+'</b></p>':'')+'<div class="mn" style="margin:.4rem 0 .7rem">'+(x.m||'<span style="color:var(--mu);font-size:.9rem">इस word का मतलब अभी ऐप में नहीं है</span>')+'</div><div class="acts"><button class="ic" onclick="say(cur.w)" aria-label="सुनो">'+ico('sp')+'</button><button class="ic" onclick="slowPlay()" aria-label="धीमा सुनो"><span class="tt">🐢</span></button><button class="ic'+(saved(x)?' on':'')+'" onclick="saveW(this)" aria-label="डायरी में रखो">'+ico('bm')+'</button></div><button class="cta" onclick="openWord()">📖 पूरा कार्ड खोलो</button><button class="sec" onclick="closeSheet()">बंद करो</button>');
+}
+function sheetChip(k){tick();stopS();bounce($$('#sp .chip')[k]);piece(cur,k)}
+function openWord(){cx=Object.assign({},cur,{bk:'किताब'});tab('learn')}
+let bkm='lesson',bkL=null,bkS=null,gistOn=false;
+function book(){
+  $('#main').innerHTML='<div class="seg">'+[['lesson','पाठ के शब्द'],['story','कहानी'],['mine','मेरा पाठ']].map(m=>'<button class="'+(bkm===m[0]?'on':'')+'" onclick="setBk(\''+m[0]+'\')">'+m[1]+'</button>').join('')+'</div><section class="card bk" id="bk"></section>';
+  ({lesson:lessonView,story:storyView,mine:mineView})[bkm]();
+}
+function setBk(m){bkm=m;bkL=null;bkS=null;stopS();book()}
+const KEYS='<div class="note">हरी लाइन: मतलब मिलेगा · बिंदु वाली लाइन: भारी word</div>';
+function lessonView(){
+  const b=$('#bk');
+  if(bkL===null){b.innerHTML='<div class="cnt">अपनी किताब का पाठ चुनो</div>'+BK.map((l,k)=>'<button class="lcard" onclick="openLesson('+k+')"><b>'+l.t+'</b><small>'+l.a+' · '+l.v.length+' शब्द</small></button>').join('')+'<div class="note">पाठ का पूरा लिखा हुआ हिस्सा यहाँ नहीं है। उसे <b>मेरा पाठ</b> में paste करके पढ़ो।</div>';return}
+  const l=BK[bkL];
+  b.innerHTML='<div class="wd" style="font-size:1.3rem;margin:0">'+l.t+'</div><div class="cnt">'+l.a+'</div><div class="sum">'+l.g+'</div><div class="wgrid">'+l.v.map((x,k)=>'<button class="chip" onclick="lessonWord('+k+')"><b>'+x.w+'</b></button>').join('')+'</div><div class="acts" style="margin-top:auto"><button class="sec" onclick="openLesson(null)">← पाठ</button><button class="cta" onclick="lessonWord(0)">▶ सब शब्द सीखो</button></div>';
+}
+function openLesson(k){bkL=k;book()}
+function lessonWord(k){const l=BK[bkL];cx=Object.assign({},l.v[k],{lst:l.v,ix:k,bk:l.t});tab('learn')}
+function storyView(){
+  const b=$('#bk');
+  if(bkS===null){b.innerHTML='<div class="cnt">एक कहानी चुनो</div>'+STORIES.map((s,k)=>'<button class="lcard" onclick="openStory('+k+')"><b>'+s.t+'</b><small>'+LVN[s.l]+' · हर word पर टैप करो</small></button>').join('');return}
+  const s=STORIES[bkS];
+  b.innerHTML='<div class="wd" style="font-size:1.3rem;margin:0">'+s.t+'</div><div class="rd" onclick="rdTap(event)">'+rdHtml(s.e)+'</div>'+KEYS+(gistOn?'<div class="sum">'+s.g+'</div>':'')+'<div class="acts"><button class="sec" onclick="openStory(null)">← कहानियाँ</button><button class="ic" onclick="say(STORIES[bkS].e)" aria-label="कहानी सुनो">'+ico('sp')+'</button><button class="sec" onclick="gistOn=!gistOn;storyView()">हिंदी सार</button></div>';
+}
+function openStory(k){bkS=k;gistOn=false;stopS();book()}
+function mineView(){
+  const b=$('#bk');
+  if(!S.mine){b.innerHTML='<div class="cnt">किताब का पैराग्राफ यहाँ डालो</div><textarea class="ta" id="ta" placeholder="यहाँ paste करो या टाइप करो…" spellcheck="false"></textarea><div class="note">कैमरा या Google Lens से पैराग्राफ कॉपी करके paste कर सकते हो। ये सिर्फ आपके फोन में रहता है।</div><button class="cta" onclick="mineSave()">📖 पढ़ो</button>';return}
+  b.innerHTML='<div class="rd" onclick="rdTap(event)">'+rdHtml(S.mine)+'</div>'+KEYS+'<div class="acts"><button class="sec" onclick="mineEdit()">✏️ बदलो</button><button class="ic" onclick="say(S.mine.slice(0,600))" aria-label="सुनो">'+ico('sp')+'</button><button class="sec" onclick="mineDel()">🗑 हटाओ</button></div>';
+}
+function mineSave(){const t=($('#ta').value||'').trim();if(!t)return;S.mine=t.slice(0,6000);store();mineView()}
+function mineEdit(){const t=S.mine;S.mine='';mineView();$('#ta').value=t}
+function mineDel(){S.mine='';store();mineView()}
+/* ---- diary / profile / tabs ---- */
+function diary(){
+  const a=S.diary;
+  $('#main').innerHTML='<div class="cnt" style="text-align:left;font-size:.95rem">🔖 कुल सेव words: <b style="color:#fff">'+a.length+'</b></div><div class="dl">'+(a.length?a.map((x,k)=>'<div class="di"><div><b>'+x.w+'</b><small>'+x.s.join(' · ')+(x.h?' · '+x.h.join(''):'')+'</small><small>'+(x.m||'')+'</small></div><button class="ic" onclick="dSay('+k+')" aria-label="सुनो">'+ico('sp')+'</button><button class="ic" onclick="dDel('+k+')" aria-label="हटाओ">'+ico('tr')+'</button></div>').join(''):'<section class="card" style="text-align:center">अभी कुछ सेव नहीं है।<br><span class="cnt">किसी word के कार्ड पर 🔖 दबाओ।</span></section>')+'</div>';
+}
+function dSay(k){say(S.diary[k].w)}
+function dDel(k){S.diary.splice(k,1);store();diary();toast('Word removed')}
+function profile(){
+  const L=Math.floor(S.xp/100)+1;
+  openSheet('<div class="orb sm">'+LOGO+'</div><h3>इंग्लिश शब्द तोड़ो</h3><p>Level '+L+' · ⭐ '+S.xp+' XP · 🔥 '+S.streak+' दिन</p><div class="srow"><span>❤️ दिल</span><b>'+S.hearts+' / 5</b></div><div class="srow"><span>🔖 सेव किए words</span><b>'+S.diary.length+'</b></div><a class="sec" href="'+IG+'" target="_blank" rel="noopener">📸 Instagram पर जुड़ो</a><p class="cr">❤️ Created by Anuj | All Rights Reserved</p><button class="cta" onclick="closeSheet()">बंद करो</button>');
+}
+const TABS=[['learn','सीखो'],['book','किताब'],['build','जोड़ो'],['quiz','क्विज़'],['diary','डायरी']];
+function tab(t){
+  stopS();closeSheet();tabn=t;
+  $('#nav').innerHTML=TABS.map(x=>'<button class="'+(x[0]===t?'cur':'')+'" onclick="tab(\''+x[0]+'\')" aria-label="'+x[1]+'">'+ico(x[0])+x[1]+'</button>').join('');
+  ({learn,book,build,quiz,diary})[t]();
+}
+$$('.lg').forEach(e=>{e.innerHTML=LOGO});
+$('#bse').innerHTML=ico('se');$('#bpr').innerHTML=ico('us');
+hud();tab('learn');setInterval(hud,30000);
+setTimeout(()=>{const s=$('#splash');s.classList.add('hide');setTimeout(()=>s.remove(),500)},1500);
+</script>
+</body>
+</html>
